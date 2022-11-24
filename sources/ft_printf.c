@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:39:35 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/11/24 11:54:38 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/11/24 13:01:53 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	def_input(t_toprint *tab, const char *input, int i)
 		ft_putchar_f(tab);
 	else if (input[i] && input[i] == 's')
 		ft_putstr_f(tab);
+	else if (input[i] && input[i] == 'd')
+		ft_putint_f(tab);
 	return (i);
 }
 
@@ -63,6 +65,7 @@ int	main(int ac, char **av)
 	int		countcog;
 	char	c = 'N';
 	char	str[] = "j'adore la vie";
+	int		d = 18;
 
 	if (!(ac == 2))
 	{
@@ -78,6 +81,11 @@ int	main(int ac, char **av)
 	{
 		countc = ft_printf("MF:%s\n", str);
 		countcog = printf("OG:%s\n", str);
+	}
+	else if (av[1][0] == 'd')
+	{
+		countc = ft_printf("MF:%d\n", d);
+		countcog = printf("OG:%d\n", d);
 	}
 	printf("MF count:%d\nOG count:%d\n", countc, countcog);
 	return (0);

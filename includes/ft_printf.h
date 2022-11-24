@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 22:52:52 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/11/24 11:34:17 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/11/24 12:54:04 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ typedef struct s_toprint
 
 void	ft_putchar_f(t_toprint *tab);
 void	ft_putstr_f(t_toprint *tab);
+void	ft_putint_f(t_toprint *tab);
 
 #endif
