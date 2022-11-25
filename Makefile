@@ -6,7 +6,7 @@
 #    By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 07:13:22 by hanmpark          #+#    #+#              #
-#    Updated: 2022/11/25 18:34:58 by hanmpark         ###   ########.fr        #
+#    Updated: 2022/11/25 21:48:12 by hanmpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ SRCS		=	${addprefix ${SRCS_DIR}, ${addsuffix .c, ${SRCS_FILES}}}
 
 OBJS		=	${SRCS:.c=.o}
 
-PRINTF		=	ft_printf.c main.c
+PRINTF		=	ft_printf.c
 
 PRINTF_OBJS	=	${PRINTF:.c=.o}
 
