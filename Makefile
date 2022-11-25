@@ -6,7 +6,7 @@
 #    By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 07:13:22 by hanmpark          #+#    #+#              #
-#    Updated: 2022/11/25 11:24:34 by hanmpark         ###   ########.fr        #
+#    Updated: 2022/11/25 18:34:58 by hanmpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ _IGREEN		=	\x1b[42m
 _IPURPLE	=	\x1b[45m
 
 #	SOURCES / OBJECTS
-SRCS_FILES	=	ft_printf ft_printf_utils
+SRCS_FILES	=	ft_putchars ft_putints 
 SRCS		=	${addprefix ${SRCS_DIR}, ${addsuffix .c, ${SRCS_FILES}}}
 
 OBJS		=	${SRCS:.c=.o}
