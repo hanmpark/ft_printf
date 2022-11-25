@@ -6,7 +6,7 @@
 #    By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 16:40:47 by hanmpark          #+#    #+#              #
-#    Updated: 2022/11/21 18:02:29 by hanmpark         ###   ########.fr        #
+#    Updated: 2022/11/25 10:14:13 by hanmpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,24 +31,24 @@ CC 			= gcc
 CFLAGS		= -Wall -Wextra -Werror
 
 .c.o:
-				${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+				@${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 NAME		= libft.a
 
 all:		${NAME}
 
 ${NAME}:	${OBJS}
-				ar rcs ${NAME} ${OBJS}
+				@ar rcs ${NAME} ${OBJS}
 
 clean:	
-				rm -f ${OBJS} ${BONUS_OBJS}
+				@rm -f ${OBJS} ${BONUS_OBJS}
 
 fclean:		clean
-				rm -f ${NAME}
+				@rm -f ${NAME}
 
 re:			fclean all
 
 bonus:		${OBJS} ${BONUS_OBJS}
-				ar rcs ${NAME} ${OBJS} ${BONUS_OBJS}
+				@ar rcs ${NAME} ${OBJS} ${BONUS_OBJS}
 
 .PHONY: all clean fclean re bonus
