@@ -6,7 +6,7 @@
 #    By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 07:13:22 by hanmpark          #+#    #+#              #
-#    Updated: 2022/11/25 10:37:58 by hanmpark         ###   ########.fr        #
+#    Updated: 2022/11/25 11:24:34 by hanmpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,19 +34,23 @@ _IPURPLE	=	\x1b[45m
 SRCS_FILES	=	ft_printf ft_printf_utils
 SRCS		=	${addprefix ${SRCS_DIR}, ${addsuffix .c, ${SRCS_FILES}}}
 
-OBJS		= ${SRCS:.c=.o}
+OBJS		=	${SRCS:.c=.o}
 
-.c.o:
-		${CC} ${CFLAGS} -c -I ./includes $< -o ${<:.c=.o}
+PRINTF		=	ft_printf.c main.c
+
+PRINTF_OBJS	=	${PRINTF:.c=.o}
 
 #	COMPILER
+
 CC			= gcc
 #CFLAGS		= -Wall -Wextra -Werror
+.c.o:
+		${CC} ${CFLAGS} -c -I ./includes $< -o ${<:.c=.o}
 
 #	MAKE
 all:		${NAME}
 
-${NAME}:	${OBJS}
+${NAME}:	${OBJS} ${PRINTF_OBJS}
 		@echo "${_GREEN}───────────────▄▄───▐█${_END}"
 		@echo "${_GREEN}───▄▄▄───▄██▄──█▀───█─▄${_END}"
 		@echo "${_GREEN}─▄██▀█▌─██▄▄──▐█▀▄─▐█▀${_END}"
@@ -54,12 +58,12 @@ ${NAME}:	${OBJS}
 		@echo "${_GREEN}▌▀▄─▐──▀▄─▐▄─▐▄▐▄─▐▄─▐▄${_END}"
 		@make bonus -C ${LIBFT}
 		@cp libft/libft.a ${NAME}
-		@ar rc ${NAME} ${OBJS}
+		@ar rc ${NAME} ${OBJS} ${PRINTF_OBJS}
 		@echo "${_BOLD}${_IGREEN}${_CYAN}Nicely compiled, t'es chaud${_END}"
 
 #	RULES
 clean:
-		rm -f ${OBJS}
+		rm -f ${OBJS} ${PRINTF_OBJS}
 		make clean -C ${LIBFT}
 		@echo "${_BOLD}${_IPURPLE}.o files destroyed${_END}"
 
@@ -75,8 +79,5 @@ fclean:		clean
 		@echo "${_RED}   3__33__33___33------------------------------------'  |_____|${_END}"
 
 re:			fclean all
-
-bonus:		${OBJS}
-		ar rcs ${NAME} ${OBJS}
 
 .PHONY: all clean fclean re
