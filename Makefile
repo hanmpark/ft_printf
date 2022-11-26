@@ -6,7 +6,7 @@
 #    By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 07:13:22 by hanmpark          #+#    #+#              #
-#    Updated: 2022/11/25 21:48:12 by hanmpark         ###   ########.fr        #
+#    Updated: 2022/11/26 18:26:29 by hanmpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@
 NAME		=	libftprintf.a
 LIBFT		=	libft/
 SRCS_DIR	=	sources/
+H_DIR		=	includes/
 
 # This is a minimal set of ANSI/VT100 color codes
 _END	=	\x1b[0m
@@ -32,25 +33,21 @@ _IPURPLE	=	\x1b[45m
 
 #	SOURCES / OBJECTS
 SRCS_FILES	=	ft_putchars ft_putints 
-SRCS		=	${addprefix ${SRCS_DIR}, ${addsuffix .c, ${SRCS_FILES}}}
+SRCS		=	${addprefix ${SRCS_DIR}, ${addsuffix .c, ${SRCS_FILES}}} ft_printf.c
 
 OBJS		=	${SRCS:.c=.o}
-
-PRINTF		=	ft_printf.c
-
-PRINTF_OBJS	=	${PRINTF:.c=.o}
 
 #	COMPILER
 
 CC			= gcc
 #CFLAGS		= -Wall -Wextra -Werror
-.c.o:
-		${CC} ${CFLAGS} -c -I ./includes $< -o ${<:.c=.o}
+%.o:%.c		${H_DIR}
+		${CC} ${CFLAGS} -c -I ./${H_DIR} $< -o ${<:.c=.o}
 
 #	MAKE
 all:		${NAME}
 
-${NAME}:	${OBJS} ${PRINTF_OBJS}
+${NAME}:	${OBJS}
 		@echo "${_GREEN}───────────────▄▄───▐█${_END}"
 		@echo "${_GREEN}───▄▄▄───▄██▄──█▀───█─▄${_END}"
 		@echo "${_GREEN}─▄██▀█▌─██▄▄──▐█▀▄─▐█▀${_END}"
@@ -58,12 +55,12 @@ ${NAME}:	${OBJS} ${PRINTF_OBJS}
 		@echo "${_GREEN}▌▀▄─▐──▀▄─▐▄─▐▄▐▄─▐▄─▐▄${_END}"
 		@make bonus -C ${LIBFT}
 		@cp libft/libft.a ${NAME}
-		@ar rc ${NAME} ${OBJS} ${PRINTF_OBJS}
+		@ar rcs ${NAME} ${OBJS} ${PRINTF_OBJS}
 		@echo "${_BOLD}${_IGREEN}${_CYAN}Nicely compiled, t'es chaud${_END}"
 
 #	RULES
 clean:
-		rm -f ${OBJS} ${PRINTF_OBJS}
+		rm -f ${OBJS}
 		make clean -C ${LIBFT}
 		@echo "${_BOLD}${_IPURPLE}.o files destroyed${_END}"
 

@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 10:56:47 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/11/25 21:43:15 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/11/26 17:55:47 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int ac, char **av)
 	int		countc;
 	int		countcog;
 	char	c = 'N';
-	char	str[] = "j'adore la vie";
+	char	*str = NULL;
 	int		d = -1912345;
 
 	if (!(ac == 2))
@@ -35,7 +35,7 @@ int	main(int ac, char **av)
 		countc = ft_printf("MF:%s\n", str);
 		countcog = printf("OG:%s\n", str);
 	}
-	else if (av[1][0] == 'd')
+	else if (av[1][0] == 'd' || av[1][0] == 'i')
 	{
 		countc = ft_printf("MF:%d\n", d);
 		countcog = printf("OG:%d\n", d);

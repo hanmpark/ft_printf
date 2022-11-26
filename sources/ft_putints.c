@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 11:28:36 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/11/25 20:33:30 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/11/26 14:53:08 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_putnbrbase(t_toprint *tab, char *base, long long i)
 	baselen = ft_strlen(base);
 	if (i < 0)
 	{
-		ft_putchar_fd('-', 1);
+		tab->len += write(1, "-", 1);
 		i *= -1;
 	}
 	if (i > baselen)

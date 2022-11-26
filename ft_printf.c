@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:39:35 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/11/25 21:42:10 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/11/26 16:16:11 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,24 @@ t_toprint	*init_tab(t_toprint *tab)
 	return (tab);
 }
 
-int	def_input(t_toprint *tab, const char *input, int i)
+int	def_input1(t_toprint *tab, const char *input, unsigned long long i)
 {
+	if (input[i] && input[i] == 'p')
+	{
+		tab->len += write(1, "0x", 2);
+		ft_putnbrbase_p(tab, "0123456789abcdef", va_arg(tab->args, unsigned long long));
+	}
+	else if (input[i] && input[i] == '%')
+		tab->len += write(1, "%", 1);
+	else if (input[i])
+		tab->len += write(1, &input[i], 1);
+	return (i);
+}
+
+int	def_input(t_toprint *tab, const char *input, unsigned long long i)
+{
+	while (input[i] && input[i] == ' ')
+		i++;
 	if (input[i] && input[i] == 'c')
 		ft_putchar_f(tab);
 	else if (input[i] && input[i] == 's')
@@ -32,15 +48,8 @@ int	def_input(t_toprint *tab, const char *input, int i)
 		ft_putnbrbase(tab, "0123456789abcdef", va_arg(tab->args, unsigned int));
 	else if (input[i] && input[i] == 'X')
 		ft_putnbrbase(tab, "0123456789ABCDEF", va_arg(tab->args, unsigned int));
-	else if (input[i] && input[i] == 'p')
-	{
-		tab->len += write(1, "0x", 2);
-		ft_putnbrbase_p(tab, "0123456789abcdef", va_arg(tab->args, unsigned long long));
-	}
-	else if (input[i] && input[i] == '%')
-		tab->len += write(1, "%", 1);
-	else if (input[i])
-		tab->len += write(1, &input[i], 1);
+	else
+		def_input1(tab, input, i);
 	return (i);
 }
 
@@ -50,6 +59,8 @@ int	ft_printf(const char *input, ...)
 	unsigned long long int	i;
 	unsigned long long int	cnbr;
 
+	if (!input[i])
+		return (0);
 	tab = malloc(sizeof(t_toprint));
 	if (!tab)
 		return (0);
@@ -63,10 +74,11 @@ int	ft_printf(const char *input, ...)
 			i = def_input(tab, input, i + 1);
 		else
 			cnbr += write(1, &input[i], 1);
+		if (!input[i])
+			break ;
 	}
 	va_end(tab->args);
 	cnbr += tab->len;
 	free(tab);
 	return (cnbr);
 }
-// ofeEgGn
