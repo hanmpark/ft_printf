@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 22:52:52 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/11/26 17:59:15 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/11/27 22:01:03 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ typedef struct s_toprint
 	int		len;
 }	t_toprint;
 
-int		ft_printf(const char *input, ...);//FOR MAIN
+int		ft_printf(const char *input, ...);
 void	ft_putchar_f(t_toprint *tab);
 void	ft_putstr_f(t_toprint *tab);
 void	ft_putnbrbase(t_toprint *tab, char *base, long long i);
-void	ft_putnbrbase_p(t_toprint *tab, char *base, unsigned long long i);
+void	ft_putnbrbase_p(t_toprint *tab, char *base, unsigned long i);
 
 #endif

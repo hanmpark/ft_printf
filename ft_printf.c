@@ -6,30 +6,16 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:39:35 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/11/26 16:16:11 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/11/27 22:02:23 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "includes/ft_printf.h"
 
 t_toprint	*init_tab(t_toprint *tab)
 {
 	tab->len = 0;
 	return (tab);
-}
-
-int	def_input1(t_toprint *tab, const char *input, unsigned long long i)
-{
-	if (input[i] && input[i] == 'p')
-	{
-		tab->len += write(1, "0x", 2);
-		ft_putnbrbase_p(tab, "0123456789abcdef", va_arg(tab->args, unsigned long long));
-	}
-	else if (input[i] && input[i] == '%')
-		tab->len += write(1, "%", 1);
-	else if (input[i])
-		tab->len += write(1, &input[i], 1);
-	return (i);
 }
 
 int	def_input(t_toprint *tab, const char *input, unsigned long long i)
@@ -43,34 +29,40 @@ int	def_input(t_toprint *tab, const char *input, unsigned long long i)
 	else if (input[i] && (input[i] == 'd' || input[i] == 'i'))
 		ft_putnbrbase(tab, "0123456789", va_arg(tab->args, int));
 	else if (input[i] && input[i] == 'u')
-		ft_putnbrbase(tab, "0123456789", va_arg(tab->args, unsigned int));
+		ft_putnbrbase(tab, "0123456789", va_arg(tab->args, unsigned));
 	else if (input[i] && input[i] == 'x')
-		ft_putnbrbase(tab, "0123456789abcdef", va_arg(tab->args, unsigned int));
+		ft_putnbrbase(tab, "0123456789abcdef", va_arg(tab->args, unsigned));
 	else if (input[i] && input[i] == 'X')
-		ft_putnbrbase(tab, "0123456789ABCDEF", va_arg(tab->args, unsigned int));
+		ft_putnbrbase(tab, "0123456789ABCDEF", va_arg(tab->args, unsigned));
+	else if (input[i] && input[i] == 'p')
+	{
+		tab->len += write(1, "0x", 2);
+		ft_putnbrbase_p(tab, "0123456789abcdef",
+			va_arg(tab->args, unsigned long long));
+	}
+	else if (input[i] && input[i] == '%')
+		tab->len += write(1, "%", 1);
 	else
-		def_input1(tab, input, i);
+		tab->len += write(1, &input[i], 1);
 	return (i);
 }
 
 int	ft_printf(const char *input, ...)
 {
-	t_toprint				*tab;
-	unsigned long long int	i;
-	unsigned long long int	cnbr;
+	t_toprint	*tab;
+	int			i;
+	int			cnbr;
 
-	if (!input[i])
-		return (0);
 	tab = malloc(sizeof(t_toprint));
 	if (!tab)
-		return (0);
+		return (-1);
 	init_tab(tab);
 	va_start(tab->args, input);
 	i = -1;
 	cnbr = 0;
 	while (input[++i])
 	{
-		if (input[i] == '%')
+		if (input[i] == '%' && input[i + 1])
 			i = def_input(tab, input, i + 1);
 		else
 			cnbr += write(1, &input[i], 1);
