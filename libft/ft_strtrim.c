@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 18:23:19 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/11/18 18:37:16 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/11/26 18:08:30 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,3 @@ char	*ft_strtrim(char const *s1, char const *set)
 	dest = ft_substr(s1, 0, dstsize);
 	return (dest);
 }
-/*#include <stdio.h>
-int	main()
-{
-	char	s1[] = "\t   \n\n\n  \n\n\t    Hello \t  Please\n Trim me !\t\t\t\n";
-	char	set[] = " \n\t";
-
-	printf("%s\n", ft_strtrim(s1, set));
-	return (0);
-}*/

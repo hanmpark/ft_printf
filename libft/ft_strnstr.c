@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 17:45:47 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/11/12 11:59:26 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/11/26 18:08:12 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,3 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	}
 	return (NULL);
 }
-/*#include <stdio.h>
-int	main()
-{
-	char *s1 = "";
-	char *s2 = "coucou";
-	size_t max = -1;
-	char *i1 = strnstr(s1, s2, max);
-	char *i2 = ft_strnstr(s1, s2, max);
-
-	printf("%s\n", i1);
-	printf("%s\n", i2);
-	return (0);
-}*/

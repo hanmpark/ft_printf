@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 10:03:35 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/11/23 10:38:12 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/11/26 18:03:30 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,3 @@ char	*ft_itoa(int n)
 	}
 	return (a);
 }
-/*#include <stdio.h>
-int	main()
-{
-	int	n = -2147483648;
-
-	printf("%s\n", ft_itoa(n));
-	return (0);
-}*/

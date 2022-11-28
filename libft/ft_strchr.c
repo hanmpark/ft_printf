@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 12:04:09 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/11/18 00:30:27 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/11/26 18:05:59 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,3 @@ char	*ft_strchr(const char *s, int c)
 	}
 	return (0);
 }
-/*#include <string.h>
-#include <stdio.h>
-int	main()
-{
-	char	str[] = "test";
-	char	*r;
-	char	*caca;
-	int		i = 'e' + 256;
-	
-	r = ft_strchr(str, i);
-	caca = strchr(str, i);
-	printf("|%s|\n",r);
-	printf("|%s|\n", caca);
-	return (0);
-}*/

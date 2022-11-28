@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 15:26:17 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/11/11 15:34:27 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/11/26 18:08:06 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,3 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	}
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
-/*#include <stdio.h>
-int	main(void)
-{
-	char	c[] = "helLo";
-	char	d[] = "hel";
-	
-	printf("compared and result = %d\n", ft_strncmp(c, d, ));
-	return (0);
-}*/

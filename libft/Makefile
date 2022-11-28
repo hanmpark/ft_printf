@@ -6,9 +6,11 @@
 #    By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 16:40:47 by hanmpark          #+#    #+#              #
-#    Updated: 2022/11/25 10:14:13 by hanmpark         ###   ########.fr        #
+#    Updated: 2022/11/26 18:12:10 by hanmpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+H_FILE = libft.h
 
 SOURCES 	=	ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 				ft_isdigit.c ft_isprint.c ft_memcpy.c ft_memset.c \
@@ -30,25 +32,31 @@ BONUS_OBJS	= ${BONUS:.c=.o}
 CC 			= gcc
 CFLAGS		= -Wall -Wextra -Werror
 
-.c.o:
-				@${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+ifdef BONUS_OK
+OBJ			= ${OBJS} ${BONUS_OBJS}
+else
+OBJ			= ${OBJS}
+endif
+
+%.o:%.c		${H_FILE}
+				${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 NAME		= libft.a
 
 all:		${NAME}
 
-${NAME}:	${OBJS}
-				@ar rcs ${NAME} ${OBJS}
+${NAME}:	${OBJ}
+				ar rcs ${NAME} ${OBJ}
 
 clean:	
-				@rm -f ${OBJS} ${BONUS_OBJS}
+				rm -f ${OBJS} ${BONUS_OBJS}
 
 fclean:		clean
-				@rm -f ${NAME}
+				rm -f ${NAME}
 
 re:			fclean all
 
-bonus:		${OBJS} ${BONUS_OBJS}
-				@ar rcs ${NAME} ${OBJS} ${BONUS_OBJS}
+bonus:
+				${MAKE} BONUS_OK=1
 
 .PHONY: all clean fclean re bonus

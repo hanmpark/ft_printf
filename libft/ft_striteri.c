@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 08:50:37 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/11/17 09:03:43 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/11/26 18:06:05 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,3 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 		i++;
 	}
 }
-/*#include <stdio.h>
-int	main()
-{
-	char	s[] = "0000000000";
-
-	ft_striteri(s, iter);
-	printf("%s\n", s);
-	return (0);
-}*/

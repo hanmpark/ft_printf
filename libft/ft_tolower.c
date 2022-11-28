@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 12:00:30 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/11/11 12:03:27 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/11/26 18:08:37 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,3 @@ int	ft_tolower(int character)
 		character += 32;
 	return (character);
 }
-/*#include <stdio.h>
-int	main()
-{
-	char	c = 'a';
-	printf("%c\n", ft_tolower(c));
-	return (0);
-}*/

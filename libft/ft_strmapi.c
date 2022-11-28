@@ -6,18 +6,11 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 07:41:09 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/11/17 14:34:02 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/11/26 18:08:01 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-/*char	check_char(unsigned int i, char c)
-{
-	char	newc;
-	
-	newc = (unsigned int)c + i;
-	return (newc);
-}*/
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
@@ -38,9 +31,3 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	nstr[i] = 0;
 	return (nstr);
 }
-/*#include <stdio.h>
-int	main()
-{
-	printf("%s\n", ft_strmapi("abcdef", check_char));
-	return (0);
-}*/

@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 15:31:11 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/11/21 10:25:06 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/11/26 18:08:35 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,3 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	return (dest);
 }
-/*#include <stdio.h>
-int	main()
-{
-	char	str[] = "hola";
-	char	*strsub;
-
-	strsub = ft_substr(str, 2, 3);
-	printf("%s\n", strsub);
-	return (0);
-}*/

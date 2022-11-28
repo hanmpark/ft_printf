@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 07:37:17 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/11/23 10:38:41 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/11/26 18:05:54 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,22 +78,3 @@ char	**ft_split(char const *s, char c)
 	*tab = 0;
 	return (tab - count);
 }
-/*#include <stdio.h>
-int	main()
-{
-	char	str[] = "xxxxxxxxhello!";
-	char	sep = '\0';
-	char	**nstrs;
-	int		i;
-
-	i = 0;
-	nstrs = ft_split(str, sep);
-	while (nstrs[i])
-	{
-		printf("%s\n", nstrs[i]); 
-		free(nstrs[i]);
-		i++;
-	}
-	free(nstrs[i]);
-	return (0);
-}*/
