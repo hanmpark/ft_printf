@@ -6,7 +6,7 @@
 #    By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 16:40:47 by hanmpark          #+#    #+#              #
-#    Updated: 2022/11/26 18:12:10 by hanmpark         ###   ########.fr        #
+#    Updated: 2022/11/28 11:27:58 by hanmpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,17 +46,17 @@ NAME		= libft.a
 all:		${NAME}
 
 ${NAME}:	${OBJ}
-				ar rcs ${NAME} ${OBJ}
+				@ar rcs ${NAME} ${OBJ}
 
 clean:	
-				rm -f ${OBJS} ${BONUS_OBJS}
+				@rm -f ${OBJS} ${BONUS_OBJS}
 
 fclean:		clean
-				rm -f ${NAME}
+				@rm -f ${NAME}
 
 re:			fclean all
 
 bonus:
-				${MAKE} BONUS_OK=1
+				@${MAKE} BONUS_OK=1
 
 .PHONY: all clean fclean re bonus
