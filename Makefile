@@ -6,7 +6,7 @@
 #    By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 07:13:22 by hanmpark          #+#    #+#              #
-#    Updated: 2022/11/26 18:26:29 by hanmpark         ###   ########.fr        #
+#    Updated: 2022/11/30 15:42:52 by hanmpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ ${NAME}:	${OBJS}
 		@echo "${_GREEN}▌▀▄─▐──▀▄─▐▄─▐▄▐▄─▐▄─▐▄${_END}"
 		@make bonus -C ${LIBFT}
 		@cp libft/libft.a ${NAME}
-		@ar rcs ${NAME} ${OBJS} ${PRINTF_OBJS}
+		@ar rcs ${NAME} ${OBJS}
 		@echo "${_BOLD}${_IGREEN}${_CYAN}Nicely compiled, t'es chaud${_END}"
 
 #	RULES
