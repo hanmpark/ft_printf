@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:39:35 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/11/28 08:31:17 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/12/19 19:04:36 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 t_toprint	*init_tab(t_toprint *tab)
 {
 	tab->len = 0;
+	tab->left_justify = 0;
+	tab->width = 0;
+	tab->pad_zero = 0;
+	tab->precision = 0;
 	return (tab);
 }
 
@@ -23,9 +27,9 @@ int	def_input(t_toprint *tab, const char *input, unsigned long long i)
 	while (input[i] && input[i] == ' ')
 		i++;
 	if (input[i] && input[i] == 'c')
-		ft_putchar_f(tab);
+		ft_putchar_input(tab);
 	else if (input[i] && input[i] == 's')
-		ft_putstr_f(tab);
+		ft_putstr_input(tab);
 	else if (input[i] && (input[i] == 'd' || input[i] == 'i'))
 		ft_putnbrbase(tab, "0123456789", va_arg(tab->args, int));
 	else if (input[i] && input[i] == 'u')
@@ -58,16 +62,18 @@ int	ft_printf(const char *input, ...)
 		return (-1);
 	init_tab(tab);
 	va_start(tab->args, input);
-	i = -1;
+	i = 0;
 	cnbr = 0;
-	while (input[++i])
+	while (input[i])
 	{
 		if (input[i] == '%' && input[i + 1])
+		{
+			i = def_flags(tab, input, i + 1);
 			i = def_input(tab, input, i + 1);
-		else
+		}
+		else if (input[i] && input[i] != '%')
 			cnbr += write(1, &input[i], 1);
-		if (!input[i])
-			break ;
+		i++;
 	}
 	va_end(tab->args);
 	cnbr += tab->len;
