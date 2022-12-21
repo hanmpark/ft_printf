@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:39:35 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/12/19 19:04:36 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/12/21 23:59:07 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	def_input(t_toprint *tab, const char *input, unsigned long long i)
 		tab->len += write(1, &input[i], 1);
 	return (i);
 }
-
+#include <stdio.h>
 int	ft_printf(const char *input, ...)
 {
 	t_toprint	*tab;
@@ -69,7 +69,7 @@ int	ft_printf(const char *input, ...)
 		if (input[i] == '%' && input[i + 1])
 		{
 			i = def_flags(tab, input, i + 1);
-			i = def_input(tab, input, i + 1);
+			i = def_input(tab, input, i);
 		}
 		else if (input[i] && input[i] != '%')
 			cnbr += write(1, &input[i], 1);

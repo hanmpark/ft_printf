@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 11:28:36 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/12/19 19:10:56 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/12/21 23:58:39 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	ft_putstr_input(t_toprint *tab)
 {
 	char	*str;
 	size_t	len;
+	int		i;
 
 	str = va_arg(tab->args, char *);
 	if (!str)
@@ -60,11 +61,33 @@ void	ft_putstr_input(t_toprint *tab)
 		tab->len += 6;
 		return ;
 	}
+	i = 0;
 	str = ft_strdup(str);
 	len = ft_strlen(str);
-	if (tab->width > (int)len)
-		str = treat_flags_char(tab, str, len);
-	ft_putstr_fd(str, 1);
-	tab->len += ft_strlen(str);
-	free(str);
+	if (tab->pad_zero)
+	{
+		treat_justify(tab, str, 1, 1);
+		tab->pad_zero = 0;
+	}
+	else if (tab->precision)
+	{
+		treat_precision(tab, len, str);
+		tab->precision = 0;
+	}
+	else if (tab->left_justify)
+	{
+		treat_justify(tab, str, 0, 0);
+		tab->left_justify = 0;
+	}
+	else if (tab->width)
+	{
+		treat_justify(tab, str, 1, 0);
+		tab->width = 0;
+	}
+	else
+	{
+		ft_putstr_fd(str, 1);
+		tab->len += ft_strlen(str);
+	}
+	free (str);
 }

@@ -6,7 +6,7 @@
 #    By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 07:13:22 by hanmpark          #+#    #+#              #
-#    Updated: 2022/12/19 19:08:27 by hanmpark         ###   ########.fr        #
+#    Updated: 2022/12/21 18:16:16 by hanmpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ OBJS		=	${SRCS:.c=.o}
 # COMPILER
 
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror
+#CFLAGS		= -Wall -Wextra -Werror
 %.o:%.c		${H_DIR}
 		${CC} ${CFLAGS} -c -I ./${H_DIR} $< -o ${<:.c=.o}
 

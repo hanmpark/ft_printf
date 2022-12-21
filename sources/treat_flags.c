@@ -6,37 +6,49 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 17:14:55 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/12/19 19:11:29 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/12/21 22:50:01 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
-
+#include <stdio.h>
 // FLAGS ARE : - 0 . WITH WIDTH FOR STRINGS
-char	*treat_flags_char(t_toprint *tab, char *str, size_t len)
+void	treat_precision(t_toprint *tab, size_t len, char *str)
 {
-	char	*nstr;
-	size_t	space_left;
 	size_t	i;
 
-	nstr = ft_calloc((tab->width + 1), sizeof(char));
-	space_left = tab->width - len;
 	i = 0;
-	if (tab->left_justify)
+	while (i < tab->width && i < len)
 	{
-		ft_strlcat(nstr, str, len);
-		while (len + i <= (size_t)tab->width)
-			nstr[len + i++] = ' ';
+		tab->len += write(1, &str[i], 1);
+		i++;
 	}
-	else if (tab->pad_zero)
+}
+
+void	treat_justify(t_toprint *tab, char *str, int from_left, int pad_zero)
+{
+	size_t	i;
+	size_t	len;
+	int		space;
+
+	i = 0;
+	len = ft_strlen(str);
+	space = tab->width - (int)len;
+	if (from_left)
 	{
-		ft_memset(nstr, '0', space_left);
-		ft_strlcat(nstr + space_left, str, len);
+		while (space-- > 0)
+		{
+			if (pad_zero)
+				tab->len += write(1, "0", 1);
+			else
+				tab->len += write(1, " ", 1);
+		}
 	}
-	else if (tab->precision)
+	ft_putstr_fd(str, 1);
+	tab->len += len;
+	if (!from_left)
 	{
-		free(nstr);
-		nstr = ft_substr(str, 0, tab->width);
+		while (space-- > 0)
+			tab->len += write(1, " ", 1);
 	}
-	return (nstr);
 }

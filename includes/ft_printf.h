@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 22:52:52 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/12/19 19:08:55 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/12/21 22:49:52 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_putnbrbase_p(t_toprint *tab, char *base, unsigned long i);
 
 int		set_width(char *input, int index, int size);
 int		def_flags(t_toprint *tab, const char *input, int i);
-char	*treat_flags_char(t_toprint *tab, char *str, size_t len);
+void	treat_precision(t_toprint *tab, size_t len, char *str);
+void	treat_justify(t_toprint *tab, char *str, int from_left, int pad_zero);
 
 #endif
