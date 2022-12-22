@@ -6,35 +6,43 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 11:28:36 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/12/21 23:58:39 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/12/22 13:10:27 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-void	ft_putnbrbase(t_toprint *tab, char *base, long long i)
+void	ft_putnbr_decibase(t_toprint *tab, long long i)
 {
-	size_t				baselen;
+	char	*str;
 
+	str = ft_itoa(i);
+	if (!treat_flags(tab, str))
+	{
+		ft_putstr_fd(str, 1);
+		tab->len += ft_strlen(str);
+	}
+	free(str);
+}
+
+void	ft_putnbr_hexabase(t_toprint *tab, unsigned long long i, int is_maj)
+{
+	char	*base;
+	size_t	baselen;
+	size_t	k;
+
+	base = "0123456789abcdef";
 	baselen = ft_strlen(base);
+	k = 0;
+	if (is_maj)
+		base = "0123456789ABCDEF";
 	if (i < 0)
 	{
 		tab->len += write(1, "-", 1);
 		i *= -1;
 	}
-	if (i >= (long long)baselen)
-		ft_putnbrbase(tab, base, i / (long long)baselen);
-	ft_putchar_fd(base[i % baselen], 1);
-	tab->len++;
-}
-
-void	ft_putnbrbase_p(t_toprint *tab, char *base, unsigned long i)
-{
-	size_t				baselen;
-
-	baselen = ft_strlen(base);
 	if (i >= baselen)
-		ft_putnbrbase_p(tab, base, i / baselen);
+		ft_putnbr_hexabase(tab, i / baselen, is_maj);
 	ft_putchar_fd(base[i % baselen], 1);
 	tab->len++;
 }
@@ -51,7 +59,6 @@ void	ft_putchar_input(t_toprint *tab)
 void	ft_putstr_input(t_toprint *tab)
 {
 	char	*str;
-	size_t	len;
 	int		i;
 
 	str = va_arg(tab->args, char *);
@@ -62,32 +69,9 @@ void	ft_putstr_input(t_toprint *tab)
 		return ;
 	}
 	i = 0;
-	str = ft_strdup(str);
-	len = ft_strlen(str);
-	if (tab->pad_zero)
-	{
-		treat_justify(tab, str, 1, 1);
-		tab->pad_zero = 0;
-	}
-	else if (tab->precision)
-	{
-		treat_precision(tab, len, str);
-		tab->precision = 0;
-	}
-	else if (tab->left_justify)
-	{
-		treat_justify(tab, str, 0, 0);
-		tab->left_justify = 0;
-	}
-	else if (tab->width)
-	{
-		treat_justify(tab, str, 1, 0);
-		tab->width = 0;
-	}
-	else
+	if (!treat_flags(tab, str))
 	{
 		ft_putstr_fd(str, 1);
 		tab->len += ft_strlen(str);
 	}
-	free (str);
 }

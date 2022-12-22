@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:04:43 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/12/21 20:15:59 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/12/22 15:11:21 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ int	count_number(t_toprint *tab, const char *input, int i)
 	return (i);
 }
 
+void	set_precision(t_toprint *tab, char *str)
+{
+
+}
+
 int	def_flags(t_toprint *tab, const char *input, int i)
 {
 	char	*nbr;
@@ -53,14 +58,16 @@ int	def_flags(t_toprint *tab, const char *input, int i)
 	// FLAGS
 	if (input[i] && (input[i] >= '1' && input[i] <= '9'))
 		i = count_number(tab, input, i);
-	else if (input[i] == '-')
-		tab->left_justify = 1;
-	else if (input[i] == '0')
-		tab->pad_zero = 1;
-	else if (input[i] == '.')
-		tab->precision = 1;
-	if (tab->left_justify || tab->pad_zero || tab->precision)
+	while (input[i] == '-' || input[i] == '0' || input[i] == '.')
+	{
+		if (input[i] == '0')
+			tab->pad_zero = 1;
+		else if (input[i] == '-')
+			tab->left_justify = 1;
+		else if (input[i] == '.')
+			tab->precision = 1;
 		i++;
+	}
 	if (!tab->width && input[i] && ft_isdigit(input[i]))
 		i = count_number(tab, input, i);
 	return (i);
