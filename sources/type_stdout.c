@@ -6,72 +6,61 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 11:28:36 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/12/22 13:10:27 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/12/23 18:54:55 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-void	ft_putnbr_decibase(t_toprint *tab, long long i)
+void	ft_putnbrbase(t_toprint *tab, char *base, long long i)
 {
-	char	*str;
-
-	str = ft_itoa(i);
-	if (!treat_flags(tab, str))
-	{
-		ft_putstr_fd(str, 1);
-		tab->len += ft_strlen(str);
-	}
-	free(str);
-}
-
-void	ft_putnbr_hexabase(t_toprint *tab, unsigned long long i, int is_maj)
-{
-	char	*base;
 	size_t	baselen;
-	size_t	k;
 
-	base = "0123456789abcdef";
 	baselen = ft_strlen(base);
-	k = 0;
-	if (is_maj)
-		base = "0123456789ABCDEF";
 	if (i < 0)
 	{
 		tab->len += write(1, "-", 1);
 		i *= -1;
 	}
-	if (i >= baselen)
-		ft_putnbr_hexabase(tab, i / baselen, is_maj);
+	if (i >= (long long)baselen)
+		ft_putnbrbase(tab, base, i / (long long)baselen);
 	ft_putchar_fd(base[i % baselen], 1);
 	tab->len++;
 }
 
-void	ft_putchar_input(t_toprint *tab)
+void	ft_putnbrbase_p(t_toprint *tab, char *base, unsigned long long i)
 {
-	char	c;
+	size_t	baselen;
 
-	c = va_arg(tab->args, int);
-	write(1, &c, 1);
+	baselen = ft_strlen(base);
+	if (i >= (unsigned long long)baselen)
+		ft_putnbrbase(tab, base, i / (unsigned long long)baselen);
+	ft_putchar_fd(base[i % baselen], 1);
 	tab->len++;
 }
 
-void	ft_putstr_input(t_toprint *tab)
+void	ft_printchar(t_toprint *tab, int is_char)
 {
 	char	*str;
-	int		i;
+	char	c;
 
-	str = va_arg(tab->args, char *);
-	if (!str)
+	if (is_char)
 	{
-		ft_putstr_fd("(null)", 1);
-		tab->len += 6;
-		return ;
+		c = va_arg(tab->args, int);
+		tab->len += write(1, &c, 1);
 	}
-	i = 0;
-	if (!treat_flags(tab, str))
+	else
 	{
-		ft_putstr_fd(str, 1);
-		tab->len += ft_strlen(str);
+		str = va_arg(tab->args, char *);
+		if (!str)
+		{
+			ft_putstr_fd("(null)", 1);
+			tab->len += 6;
+		}
+		else
+		{
+			ft_putstr_fd(str, 1);
+			tab->len += ft_strlen(str);
+		}
 	}
 }

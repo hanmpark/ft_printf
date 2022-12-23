@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flags_parsing.c                                    :+:      :+:    :+:   */
+/*   flags_parsing_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:04:43 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/12/22 15:11:21 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/12/23 17:42:32 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "../includes/ft_printf_bonus.h"
 
 int	width_is(const char *input, int index, int size)
 {
@@ -46,11 +46,6 @@ int	count_number(t_toprint *tab, const char *input, int i)
 	return (i);
 }
 
-void	set_precision(t_toprint *tab, char *str)
-{
-
-}
-
 int	def_flags(t_toprint *tab, const char *input, int i)
 {
 	char	*nbr;
@@ -63,7 +58,10 @@ int	def_flags(t_toprint *tab, const char *input, int i)
 		if (input[i] == '0')
 			tab->pad_zero = 1;
 		else if (input[i] == '-')
-			tab->left_justify = 1;
+		{
+			tab->justify = 1;
+			tab->pad_zero = 0;
+		}
 		else if (input[i] == '.')
 			tab->precision = 1;
 		i++;

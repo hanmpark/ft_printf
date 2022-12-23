@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   treat_flags_str.c                                  :+:      :+:    :+:   */
+/*   treat_flags_str_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 17:14:55 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/12/22 15:13:14 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/12/23 17:34:37 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "../includes/ft_printf_bonus.h"
 #include <stdio.h>
 // FLAGS ARE : - 0 . WIDTH FOR STRINGS
 int	treat_precision(t_toprint *tab, size_t len, char *str)
@@ -57,7 +57,7 @@ int	treat_justify(t_toprint *tab, char *str, int from_left, int pad_zero)
 
 void	reset_flags(t_toprint *tab)
 {
-	tab->left_justify = 0;
+	tab->justify = 0;
 	tab->pad_zero = 0;
 	tab->precision = 0;
 	tab->width = 0;
@@ -72,9 +72,9 @@ int	treat_flags_str(t_toprint *tab, char *str)
 	done = 0;
 	if (tab->precision)
 
-	if (tab->pad_zero && !tab->left_justify)
+	if (tab->pad_zero && !tab->justify)
 		done = treat_justify(tab, str, 1, 1);
-	else if (tab->left_justify)
+	else if (tab->justify)
 		done = treat_justify(tab, str, 0, 0);
 	else if (tab->width)
 		done = treat_justify(tab, str, 1, 0);

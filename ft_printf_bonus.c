@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/22 17:39:35 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/12/23 16:56:48 by hanmpark         ###   ########.fr       */
+/*   Created: 2022/12/23 14:59:34 by hanmpark          #+#    #+#             */
+/*   Updated: 2022/12/23 17:36:36 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/ft_printf.h"
+#include "includes/ft_printf_bonus.h"
 
 t_toprint	*init_tab(t_toprint *tab)
 {
 	tab->len = 0;
+	tab->justify = 0;
+	tab->width = 0;
+	tab->pad_zero = 0;
+	tab->precision = 0;
 	return (tab);
 }
 
@@ -41,6 +45,7 @@ int	def_types(t_toprint *tab, const char *input, unsigned long long i)
 
 	while (input[i] && input[i] == ' ')
 		i++;
+	i = def_flags(tab, input, i);
 	c = input[i];
 	if (input[i] && (c == 'd' || c == 'i' || c == 'u' || c == 'x' ||
 		c =='X' || c == 'p'))

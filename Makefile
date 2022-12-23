@@ -6,7 +6,7 @@
 #    By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 07:13:22 by hanmpark          #+#    #+#              #
-#    Updated: 2022/12/22 13:06:47 by hanmpark         ###   ########.fr        #
+#    Updated: 2022/12/23 18:52:21 by hanmpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ _IGREEN		=	\x1b[42m
 _IPURPLE	=	\x1b[45m
 
 # SOURCES / OBJECTS
-SRCS_FILES	=	type_stdout.c treat_flags_str.c flags_parsing.c
+SRCS_FILES	=	type_stdout.c
 SRCS		=	${addprefix ${SRCS_DIR}, ${SRCS_FILES}} ft_printf.c
 
 OBJS		=	${SRCS:.c=.o}
@@ -37,7 +37,7 @@ OBJS		=	${SRCS:.c=.o}
 # COMPILER
 
 CC			= gcc
-#CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror
 %.o:%.c		${H_DIR}
 		${CC} ${CFLAGS} -c -I ./${H_DIR} $< -o ${<:.c=.o}
 

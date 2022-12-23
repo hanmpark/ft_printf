@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 12:38:26 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/12/22 15:22:09 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/12/23 18:55:10 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(void)
 	//printf("count: %d\n", printf("og: %-p%%\n", &str));
 	//ft_printf("\n");
 	//ft_printf("count: %d\n", ft_printf("mf: %p%%\n", &str));
-	printf("og = %d\n", printf("<%-.6s>%%% %%%%", str));
-	ft_printf("mf = %d\n", ft_printf("<%.-7s>%%% %%%%", str));
+	printf("og = %d\n", printf("<%10-4s>", str));
+	//ft_printf("mf = %d\n", ft_printf("<%s>%%% %%%%", str));
 	return (0);
 }
