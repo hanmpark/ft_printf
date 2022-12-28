@@ -1,45 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   type_stdout_bonus.c                                :+:      :+:    :+:   */
+/*   print_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 23:40:18 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/12/24 00:07:29 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/12/28 02:00:49 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf_bonus.h"
 
-int	count_nbr(int n)
+void	print_str(t_parseflags *tab)
 {
-	int					count;
-	unsigned long long	multiplier;
+	char	*str;
+	size_t	len;
+	int		toprint;
 
-	count = 0;
-	multiplier = 1;
-	while (n / multiplier)
+	str = va_arg(tab->args, char *);
+	if (!str)
 	{
-		count++;
-		multiplier *= 10;
+		ft_putstr_fd("(null)", 1);
+		tab->len += 6;
 	}
-	return (count);
-}
-
-void	ft_putnbr(t_toprint *tab, int n)
-{
-	int	len_nbr;
-
-	if (n < 0)
+	else
 	{
-		len_nbr++;
-		n *= -1;
-	}
-	len_nbr = count_nbr(n);
-	while (len_nbr--)
-	{
-		tab->len += write(1, n % 10 + '0', 1);
-		n /= 10;
+		len = ft_strlen(str);
+		toprint = 0;
+		if (tab->width)
+		{
+			toprint = tab->width - (int)len;
+			if (tab->check_zerojustify == '0')
+			{
+				while (toprint-- && tab->check_precision == FALSE)
+					tab->len += write(1, "0", 1);
+			}
+		}
+		ft_putstr_fd(str, 1);
+		tab->len += (int)len;
 	}
 }
