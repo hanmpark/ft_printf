@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:04:43 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/12/28 14:01:05 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/12/28 20:08:28 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	parse_precision(t_parseflags *tab, const char *input, int *i)
 		(*i)++;
 		if (input[*i] && ft_isdigit(input[*i]))
 			tab->precision = ft_atoi(input + *i);
+		while (input[*i] && ft_isdigit(input[*i]))
+			(*i)++;
 	}
 }
 
