@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flags_bonus.c                                      :+:      :+:    :+:   */
+/*   flags.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:04:43 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/12/28 02:23:12 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/12/28 14:01:05 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf_bonus.h"
-
+#include "../includes/ft_printf.h"
+#include <stdio.h>
 void	parse_width(t_parseflags *tab, const char *input, int *i)
 {
 	if (input[*i] && ft_isdigit(input[*i]))
@@ -32,7 +32,6 @@ void	parse_flags(t_parseflags *tab, const char *input, int *i)
 		else if (input[*i] == '+')
 			tab->check_sign = TRUE;
 		(*i)++;
-		printf("yes\n");
 	}
 }
 
@@ -47,10 +46,21 @@ void	parse_precision(t_parseflags *tab, const char *input, int *i)
 	}
 }
 
+void	init_flags(t_parseflags *tab)
+{
+	tab->check_hash = 0;
+	tab->check_width = 0;
+	tab->check_sign = 0;
+	tab->check_space = 0;
+	tab->check_precision = 0;
+	tab->check_zerojustify = 0;
+	tab->width = 0;
+	tab->precision = 0;
+}
+
 void	def_flags(t_parseflags *tab, const char *input, int *i)
 {
-	ft_memset(tab, 0, sizeof(t_parseflags));
-	printf("%d\n", *i);
+	init_flags(tab);
 	parse_flags(tab, input, i);
 	parse_width(tab, input, i);
 	if (input[*i] && input[*i] == ' ')

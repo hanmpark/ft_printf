@@ -5,62 +5,57 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 11:28:36 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/12/27 17:16:06 by hanmpark         ###   ########.fr       */
+/*   Created: 2022/12/23 23:40:18 by hanmpark          #+#    #+#             */
+/*   Updated: 2022/12/28 17:18:33 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
+#include <stdio.h>
 
-void	ft_putnbrbase(t_toprint *tab, char *base, long long i)
+void	print_wflags(t_parseflags *tab, char *str, size_t len)
 {
-	size_t	baselen;
+	int	toprint;
 
-	baselen = ft_strlen(base);
-	if (i < 0)
+	toprint = tab->width - (int)len;
+	if (toprint <= 0)
 	{
-		tab->len += write(1, "-", 1);
-		i *= -1;
+		ft_putstr_fd(str, 1);
+		tab->len += (int)len;
+		return ;
 	}
-	if (i >= (long long)baselen)
-		ft_putnbrbase(tab, base, i / (long long)baselen);
-	ft_putchar_fd(base[i % baselen], 1);
-	tab->len++;
+	if (tab->check_zerojustify == '0' && tab->check_precision == FALSE)
+	{
+		while (toprint--)
+			tab->len += write(1, "0", 1);
+		ft_putstr_fd(str, 1);
+		tab->len += (int)len;
+	}
+	else if (tab->check_zerojustify == '-' && tab->check_precision == FALSE)
+	{
+		ft_putstr_fd(str, 1);
+		tab->len += (int)len;
+		while (toprint--)
+			tab->len += write(1, " ", 1);	
+	}
 }
 
-void	ft_putnbrbase_p(t_toprint *tab, char *base, unsigned long long i)
-{
-	size_t	baselen;
-
-	baselen = ft_strlen(base);
-	if (i >= (unsigned long long)baselen)
-		ft_putnbrbase(tab, base, i / (unsigned long long)baselen);
-	ft_putchar_fd(base[i % baselen], 1);
-	tab->len++;
-}
-
-void	ft_printchar(t_toprint *tab, int is_char)
+void	print_str(t_parseflags *tab)
 {
 	char	*str;
-	char	c;
+	size_t	len;
+	int		toprint;
 
-	if (is_char)
+	str = va_arg(tab->args, char *);
+	if (!str)
 	{
-		c = va_arg(tab->args, int);
-		tab->len += write(1, &c, 1);
+		ft_putstr_fd("(null)", 1);
+		tab->len += 6;
 	}
 	else
 	{
-		str = va_arg(tab->args, char *);
-		if (!str)
-		{
-			ft_putstr_fd("(null)", 1);
-			tab->len += 6;
-		}
-		else
-		{
-			ft_putstr_fd(str, 1);
-			tab->len += ft_strlen(str);
-		}
+		len = ft_strlen(str);
+		toprint = 0;
+		print_wflags(tab, str, len);
 	}
 }

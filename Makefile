@@ -6,7 +6,7 @@
 #    By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 07:13:22 by hanmpark          #+#    #+#              #
-#    Updated: 2022/12/28 02:34:11 by hanmpark         ###   ########.fr        #
+#    Updated: 2022/12/28 12:52:13 by hanmpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,6 @@
 NAME		=	libftprintf.a
 LIBFT		=	libft/
 SRCS_DIR	=	sources/
-SRCB_DIR	=	sources_bonus/
 H_DIR		=	includes/
 
 # Default
@@ -31,45 +30,32 @@ _IPURPLE	=	\x1b[45m
 
 
 #################### SOURCES / OBJECTS ####################
-SRCS_FILES	=	sources/print.c ft_printf.c
-SRCB_FILES	=	sources_bonus/flags_bonus.c sources_bonus/print_bonus.c ft_printf_bonus.c
+SRCS_FILES	=	flags.c print.c
+SRCS		=	${addprefix ${SRCS_DIR}, ${SRCS_FILES}} ft_printf.c
 
-OBJS	=	${SRCS_FILES:.c=.o}
-OBJB	=	${SRCB_FILES:.c=.o}
-
-ifdef BONUS_OK
-OBJ	=	${OBJS}
-else
-OBJ	=	${OBJB}
-endif
-
+OBJS		=	${SRCS:.c=.o}
 
 #################### COMPILER ####################
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
 
-ifndef BONUS_OK
-%.o:%.c	${H_DIR}ft_printf.h
-		${CC} ${CFLAGS} -c -I ./${H_DIR}ft_printf.h ${SRCB_FILES} -o ${SRCB_FILES:.c=.o}
-else
-%.o:%.c	${H_DIR}ft_printf_bonus.h
-		${CC} ${CFLAGS} -c -I ./${H_DIR}ft_printf_bonus.h ${SRCS_FILES} -o ${SRCS_FILES:.c=.o}
-endif
+%.o:%.c	${H_DIR}
+		${CC} ${CFLAGS} -c -I ./${H_DIR} $< -o ${<:.c=.o}
 
 #################### RULES ####################
 all:		${NAME}
 
-${NAME}:	${OBJ}
+${NAME}:	${OBJS}
 		@make bonus -C ${LIBFT}
 		@cp libft/libft.a ${NAME}
-		@ar rcs ${NAME} ${OBJ}
+		@ar rcs ${NAME} ${OBJS}
 		@echo "${_BOLD}${_IGREEN}${_CYAN}Nicely compiled, t'es chaud${_END}"
 
 bonus:
-		@${MAKE} BONUS_OK=1
+		@${MAKE}
 
 clean:
-		rm -f ${OBJS} ${OBJB}
+		rm -f ${OBJS}
 		make clean -C ${LIBFT}
 		@echo "${_BOLD}${_IPURPLE}.o files destroyed${_END}"
 
