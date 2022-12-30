@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   treat_flags.c                                      :+:      :+:    :+:   */
+/*   str_flags.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 17:43:57 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/12/29 17:53:04 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/12/30 17:52:42 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 #include <stdio.h>
-
+/*
 void	pad_zero(t_parseflags *tab, char *str, size_t len)
 {
 	int	toprint;
@@ -20,7 +20,7 @@ void	pad_zero(t_parseflags *tab, char *str, size_t len)
 	if (tab->check_precision == TRUE)
 	{
 		if (tab->precision > (int)len)
-			tab->precision = len;
+			tab->precision = (int)len;
 		toprint = tab->width - tab->precision;
 		while (toprint-- > 0)
 			tab->len += write(1, "0", 1);
@@ -36,8 +36,8 @@ void	pad_zero(t_parseflags *tab, char *str, size_t len)
 		tab->len += len;
 	}
 }
-
-void	left_justify(t_parseflags *tab, char *str, size_t len)
+*/
+void	left_justifystr(t_parseflags *tab, char *str, size_t len)
 {
 	int	toprint;
 
@@ -69,29 +69,25 @@ void	precision_str(t_parseflags *tab, char *str, size_t len)
 		tab->len += write(1, &*str++, 1);
 }
 
-void	width(t_parseflags *tab, char *str, size_t len)
+void	width(t_parseflags *tab, size_t len)
 {
 	int	toprint;
 
 	toprint = tab->width - (int)len;
 	while (toprint-- > 0)
 		tab->len += write(1, " ", 1);
-	ft_putstr_fd(str, 1);
 }
 
 void	str_wflags(t_parseflags *tab, char *str, size_t len)
 {
-	if (tab->check_zerojustify == '0')
-		pad_zero(tab, str, len);
-	else if (tab->check_zerojustify == '-')
-		left_justify(tab, str, len);
+	if (tab->check_zerojustify == '-')
+		left_justifystr(tab, str, len);
 	else if (tab->check_precision == TRUE)
 		precision_str(tab, str, len);
-	else if (tab->check_width == TRUE)
-		width(tab, str, len);
 	else
 	{
+		width(tab, len);
 		ft_putstr_fd(str, 1);
-		tab->len += len;
+		tab->len += (int)len;
 	}
 }

@@ -6,19 +6,19 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 10:03:35 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/12/23 15:14:49 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/12/30 14:06:13 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	count_len(int n)
+static int	count_len(unsigned long long n)
 {
-	int		len;
-	long	nbr;
+	unsigned long long	nbr;
+	int					len;
 
-	len = 0;
 	nbr = 1;
+	len = 0;
 	if (n < 0)
 	{
 		n *= -1;
@@ -34,29 +34,27 @@ static int	count_len(int n)
 	return (len);
 }
 
-char	*ft_itoa(int n)
+char	*ft_itoa(unsigned long long n)
 {
 	char	*a;
 	int		i;
-	long	nbr;
 
 	i = count_len(n);
-	nbr = n;
 	a = malloc((i + 1) * sizeof(char));
 	if (!a)
 		return (0);
-	if (nbr < 0)
+	if (n < 0)
 	{
 		a[0] = '-';
-		nbr *= -1;
+		n *= -1;
 	}
 	a[i] = 0;
 	while (i-- > 0)
 	{
-		if (i == 0 && nbr % 10 == 0 && n < 0)
+		if (i == 0 && n % 10 == 0 && n < 0)
 			break ;
-		a[i] = nbr % 10 + '0';
-		nbr /= 10;
+		a[i] = n % 10 + '0';
+		n /= 10;
 	}
 	return (a);
 }
