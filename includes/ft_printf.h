@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 17:33:23 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/12/30 17:48:24 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/12/31 14:17:30 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ typedef struct s_parseflags
 	int		precision;
 }	t_parseflags;
 
-typedef void (*print_arg)(t_parseflags *);
+typedef void (*print_char)(t_parseflags *);
 typedef struct s_printer
 {
 	char		c;
-	print_arg	ft;
+	print_char	ft;
 }	t_printer;
 
 int		ft_printf(const char *input, ...);
@@ -42,11 +42,12 @@ void	print_str(t_parseflags *tab);
 void	print_c(t_parseflags *tab);
 void	print_decimal(t_parseflags *tab);
 void	print_unsigned(t_parseflags *tab);
+void	print_hexadecimal(t_parseflags *tab);
 // FLAGS
 void	def_flags(t_parseflags *tab, const char *input, int *i);
 // TREAT_FLAGS
 void	str_wflags(t_parseflags *tab, char *str, size_t len);
-void	nbr_wflags(t_parseflags *tab, unsigned long long nbr, int sign);
+void	nbr_wflags(t_parseflags *tab, char *str, int sign);
 void	width(t_parseflags *tab, size_t len);
 
 #endif
