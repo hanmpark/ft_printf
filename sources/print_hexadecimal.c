@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 14:16:15 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/12/31 14:21:24 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:38:56 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	count_hexadecimal(long long nbr)
 {
 	int	count;
 
-	count = 0;
+	count = 1;
 	while (nbr / 16)
 	{
 		nbr /= 16;
@@ -26,7 +26,7 @@ int	count_hexadecimal(long long nbr)
 	return (count);
 }
 
-void	print_hexadecimal(t_parseflags *tab)
+void	print_x(t_parseflags *tab)
 {
 	long long	nbr;
 	char		*hexadecimal;
@@ -37,14 +37,33 @@ void	print_hexadecimal(t_parseflags *tab)
 	hexadecimal = "0123456789abcdef";
 	count = count_hexadecimal(nbr);
 	str = malloc((count + 1) * sizeof(char));
-	while (count-- > 0)
+	str[count] = 0;
+	while (nbr && count-- > 0)
 	{
 		str[count] = hexadecimal[nbr % 16];
 		nbr /= 16;
 	}
-	if (tab->check_nbrflags == '#')
-		tab->len += write(1, "0x", 2);
-	else if (tab->check_nbrflags == ' ')
+	nbr_wflags(tab, str, FALSE);
+	free(str);
+}
+
+void	print_xx(t_parseflags *tab)
+{
+	long long	nbr;
+	char		*hexadecimal;
+	char		*str;
+	int			count;
+
+	nbr = va_arg(tab->args, long long);
+	hexadecimal = "0123456789ABCDEF";
+	count = count_hexadecimal(nbr);
+	str = malloc((count + 1) * sizeof(char));
+	str[count] = 0;
+	while (nbr && count-- > 0)
+	{
+		str[count] = hexadecimal[nbr % 16];
+		nbr /= 16;
+	}
 	nbr_wflags(tab, str, FALSE);
 	free(str);
 }

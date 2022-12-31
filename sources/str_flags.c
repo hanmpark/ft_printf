@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 17:43:57 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/12/31 13:14:20 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:32:12 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,13 @@ void	width(t_parseflags *tab, size_t len)
 {
 	int	toprint;
 
+	if (tab->check_nbrflags == '#')
+		len += 2;
 	toprint = tab->width - (int)len;
 	while (toprint-- > 0)
 		tab->len += write(1, " ", 1);
+	if (tab->check_nbrflags == '#')
+		tab->len += write(1, "0x", 2);
 }
 
 void	str_wflags(t_parseflags *tab, char *str, size_t len)
