@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 23:40:18 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/12/31 17:39:29 by hanmpark         ###   ########.fr       */
+/*   Updated: 2023/01/02 17:20:35 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ void	print_str(t_parseflags *tab)
 	str = va_arg(tab->args, char *);
 	if (!str)
 	{
-		ft_putstr_fd("(null)", 1);
-		tab->len += 6;
+		str_wflags(tab, "(null)", 6);
 		return ;
 	}
 	len = ft_strlen(str);
@@ -32,47 +31,50 @@ void	print_str(t_parseflags *tab)
 void	print_c(t_parseflags *tab)
 {
 	char	c;
-	char	str[2];
 
 	c = va_arg(tab->args, int);
-	if (!c)
-		return ;
-	str[0] = c;
-	str[1] = 0;
-	str_wflags(tab, str, 1);
+	c_wflags(tab, c);
 }
 
 void	print_decimal(t_parseflags *tab)
 {
 	long	nbr;
 	int		sign;
+	int		len;
 	char	*str;
 
 	nbr = va_arg(tab->args, int);
-	if (!nbr)
-		return ;
-	str = ft_itoa(nbr);
 	sign = FALSE;
 	if (nbr < 0)
 	{
 		sign = TRUE;
 		nbr *= -1;
 	}
-	nbr_wflags(tab, str, sign);
+	str = ft_itoa(nbr);
+	if (nbr == 0 && tab->check_precision == TRUE && tab->precision == 0)
+		len = 0;
+	else
+		len = (int)ft_strlen(str);
+	if (sign == TRUE || (sign == FALSE && tab->check_nbrflags))
+		len++;
+	nbr_wflags(tab, str, sign, len);
 	free(str);
 }
 
 void	print_unsigned(t_parseflags *tab)
 {
 	unsigned int	nbr;
-	int				sign;
 	char			*str;
+	int				len;
 
 	nbr = va_arg(tab->args, unsigned);
-	if (!nbr)
-		return ;
 	str = ft_itoa(nbr);
-	sign = FALSE;
-	nbr_wflags(tab, str, sign);
+	if (nbr == 0 && tab->check_precision == TRUE && tab->precision == 0)
+		len = 0;
+	else
+		len = (int)ft_strlen(str);
+	if (tab->check_nbrflags)
+		len++;
+	nbr_wflags(tab, str, FALSE, len);
 	free(str);
 }

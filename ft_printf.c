@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:59:34 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/12/31 16:46:23 by hanmpark         ###   ########.fr       */
+/*   Updated: 2023/01/02 16:49:01 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	def_types(t_parseflags *tab, const char *input, int *i)
 	{'x', &print_x}, {'X', &print_xx}};
 
 	(*i)++;
-	while (input[*i] && input[*i] == ' ')
-		(*i)++;
 	def_flags(tab, input, i);
 	c = input[*i];
 	k = -1;

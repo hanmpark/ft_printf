@@ -6,117 +6,77 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 17:54:49 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/12/31 17:40:08 by hanmpark         ###   ########.fr       */
+/*   Updated: 2023/01/02 17:20:24 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 #include <stdio.h>
 
-int	count_precision(t_parseflags *tab, char *str)
-{
-	int		i;
-	int		toprint;
-
-	i = 0;
-	toprint = tab->precision - (int)ft_strlen(str);
-	while (i++ < toprint)
-		tab->len += write(1, "0", 1);
-	if (toprint <= 0)
-	{
-		ft_putstr_fd(str, 1);
-		tab->len += (int)ft_strlen(str);
-	}
-	return (toprint);
-}
-
-void	precision_nbr(t_parseflags *tab, char *str, int sign)
+int	precision_count(t_parseflags *tab, int len)
 {
 	int	toprint;
-	int	len;
 
-	len = (int)ft_strlen(str);
-	if (sign == TRUE || (sign == FALSE && tab->check_nbrflags == '+')
-		|| (sign == FALSE && tab->check_nbrflags == ' '))
-		len++;
 	toprint = tab->precision - len;
 	if (toprint < 0)
 		toprint = 0;
-	if (tab->precision > len)
-		width(tab, (size_t)tab->precision);
-	while (toprint--)
+	return (toprint);
+}
+
+void	precision_nbr(t_parseflags *tab, int sign, int precisionlen)
+{
+	if (precisionlen > 0)
+		treat_nbrflags(tab, sign);
+	while (precisionlen-- > 0)
+		write(1, "0", 1);
+}
+
+void	pad_zero(t_parseflags *tab, char *str, int sign, int len)
+{
+	int		toprint;
+
+	toprint = tab->width - len;
+	treat_nbrflags(tab, sign);
+	while (toprint-- > 0)
 		tab->len += write(1, "0", 1);
-	if (toprint <= 0)
+	ft_putstr_fd(str, 1);
+	tab->len += len;
+}
+
+void	left_justifynbr(t_parseflags *tab, char *str, int sign, int len)
+{
+	int	toprint;
+	int	precisionpad;
+
+	precisionpad = precision_count(tab, (int)ft_strlen(str));
+	precision_nbr(tab, sign, precisionpad);
+	if (len > 0)
 	{
+		if (precisionpad == 0)
+			treat_nbrflags(tab, sign);
 		ft_putstr_fd(str, 1);
-		tab->len += (int)ft_strlen(str);
+		tab->len += len + precisionpad;
 	}
-}
-
-void	pad_zero(t_parseflags *tab, char *str, int sign)
-{
-	int		toprint;
-	int		len;
-
-	len = 0;
-	if (sign == TRUE || (sign == FALSE && tab->check_nbrflags == '+')
-		|| (sign == FALSE && tab->check_nbrflags == ' '))
-		len = 1;
-	else if (tab->check_nbrflags == '#')
-		len = 2;
-	len += (int)ft_strlen(str);
-	if (tab->check_precision == TRUE)
-		len += count_precision(tab, str);
-	toprint = tab->width - len;
-	if (tab->check_nbrflags == '#')
-		tab->len += write(1, "0x", 2);
-	while (toprint-- > 0)
-		tab->len += write(1, "0", 1);
-	ft_putstr_fd(str, 1);
-	tab->len += (int)ft_strlen(str);
-}
-
-void	left_justifynbr(t_parseflags *tab, char *str, int sign)
-{
-	int		toprint;
-	int		len;
-
-	len = 0;
-	if (sign == TRUE || (sign == FALSE && tab->check_nbrflags == '+')
-		|| (sign == FALSE && tab->check_nbrflags == ' '))
-		len = 1;
-	else if (tab->check_nbrflags == '#')
-		len = 2;
-	len += (int)ft_strlen(str);
-	if (tab->check_nbrflags == '#')
-		tab->len += write(1, "0x", 2);
-	if (tab->check_precision == TRUE)
-		len += count_precision(tab, str);
-	toprint = tab->width - len;
-	ft_putstr_fd(str, 1);
-	tab->len += (int)ft_strlen(str);
+	toprint = tab->width - (len + precisionpad);
 	while (toprint-- > 0)
 		tab->len += write(1, " ", 1);
 }
 
-void	nbr_wflags(t_parseflags *tab, char *str, int sign)
+void	widthnbr(t_parseflags *tab, char *str, int sign, int len)
 {
-	if (sign == FALSE && tab->check_nbrflags == '+')
-		tab->len += write(1, "+", 1);
-	else if (sign == FALSE && tab->check_nbrflags == ' ')
+	int	toprint;
+	int	precisionpad;
+
+	precisionpad = precision_count(tab, (int)ft_strlen(str));
+	toprint = tab->width - (len + precisionpad);
+	while (toprint-- > 0)
 		tab->len += write(1, " ", 1);
-	else if (sign == TRUE)
-		tab->len += write(1, "-", 1);
-	if (tab->check_zerojustify == '0' && tab->check_precision == FALSE)
-		pad_zero(tab, str, sign);
-	else if (tab->check_zerojustify == '-')
-		left_justifynbr(tab, str, sign);
-	else if (tab->check_precision == TRUE)
-		precision_nbr(tab, str, sign);
-	else
+	precision_nbr(tab, sign, precisionpad);
+	if (len > 0)
 	{
-		width(tab, ft_strlen(str));
+		if (precisionpad == 0)
+			treat_nbrflags(tab, sign);
 		ft_putstr_fd(str, 1);
-		tab->len += (int)ft_strlen(str);
+		tab->len += len + precisionpad;
 	}
 }

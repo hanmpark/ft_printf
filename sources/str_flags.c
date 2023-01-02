@@ -6,11 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 17:43:57 by hanmpark          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/01/02 11:14:09 by hanmpark         ###   ########.fr       */
-=======
-/*   Updated: 2022/12/31 17:32:12 by hanmpark         ###   ########.fr       */
->>>>>>> refs/remotes/origin/master
+/*   Updated: 2023/01/02 12:51:11 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,57 +17,44 @@ void	left_justifystr(t_parseflags *tab, char *str, size_t len)
 {
 	int	toprint;
 
-	if (tab->check_precision == TRUE)
-	{
-		if (tab->precision > (int)len)
-			tab->precision = len;
-		toprint = tab->width - tab->precision;
-		while (*str && tab->precision--)
-			tab->len += write(1, &*str++, 1);
-		while (toprint-- > 0)
-			tab->len += write(1, " ", 1);
-	}
-	else
-	{
-		toprint = tab->width - (int)len;
-		ft_putstr_fd(str, 1);
-		tab->len += len;
-		while (toprint-- > 0)
-			tab->len += write(1, " ", 1);
-	}
+	toprint = tab->width - len;
+	precision_str(tab, str, len);
+	while (toprint-- > 0)
+		tab->len += write(1, " ", 1);
+}
+
+void	left_justifyc(t_parseflags *tab, char c)
+{
+	int	toprint;
+
+	toprint = tab->width - 1;
+	tab->len += write(1, &c, 1);
+	while (toprint-- > 0)
+		tab->len += write(1, " ", 1);
 }
 
 void	precision_str(t_parseflags *tab, char *str, size_t len)
 {
-	if (tab->precision > (int)len)
-		tab->precision = len;
-	while (*str && tab->precision--)
+	while (*str && len--)
 		tab->len += write(1, &*str++, 1);
 }
 
-void	width(t_parseflags *tab, size_t len)
+void	width(t_parseflags *tab, char *str, size_t len)
 {
 	int	toprint;
 
-	if (tab->check_nbrflags == '#')
-		len += 2;
 	toprint = tab->width - (int)len;
 	while (toprint-- > 0)
 		tab->len += write(1, " ", 1);
-	if (tab->check_nbrflags == '#')
-		tab->len += write(1, "0x", 2);
+	precision_str(tab, str, len);
 }
 
-void	str_wflags(t_parseflags *tab, char *str, size_t len)
+void	widthc(t_parseflags *tab, char c)
 {
-	if (tab->check_zerojustify == '-')
-		left_justifystr(tab, str, len);
-	else if (tab->check_precision == TRUE)
-		precision_str(tab, str, len);
-	else
-	{
-		width(tab, len);
-		ft_putstr_fd(str, 1);
-		tab->len += (int)len;
-	}
+	int	toprint;
+
+	toprint = tab->width - 1;
+	while (toprint-- > 0)
+		tab->len += write(1, " ", 1);
+	tab->len += write(1, &c, 1);
 }

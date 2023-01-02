@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 12:38:26 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/12/31 17:34:03 by hanmpark         ###   ########.fr       */
+/*   Updated: 2023/01/02 16:40:37 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 int	main(void)
 {
-	int	i = -42;
-	printf(" og = %d\n", printf("<%#-21.10x>", i));
-	printf(" mf = %d\n", ft_printf("<%#-21.10x>", i));
+	int	d = 0;
+	printf(" og = %d\n", printf("<% d>", d));
+	printf(" mf = %d\n", ft_printf("<% d>", d));
 	//system("leaks a.out");
 	return (0);
 }
