@@ -6,40 +6,20 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:59:34 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/12/30 17:48:00 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/12/31 16:46:23 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_printf.h"
 #include <stdio.h>
-/*
-t_printer	*init_printertab(void)
-{
-	t_printer	*printer_tab;
-	char		*str;
-	int			i;
 
-	printer_tab = malloc(3 * sizeof(t_printer));
-	if (!printer_tab)
-		return (0);
-	str = "cspdiuxX";
-	i = 0;
-	while (i < 8)
-	{
-		printer_tab[i].c = str[i];
-		i++;
-	}
-	printer_tab[0].ft = &print_c;
-	printer_tab[1].ft = &print_str;
-}
-*/
 void	def_types(t_parseflags *tab, const char *input, int *i)
 {
 	char			c;
 	int				k;
 	const t_printer	printer_tab[] = {{'s', &print_str}, {'c', &print_c},
 	{'d', &print_decimal}, {'i', &print_decimal}, {'u', &print_unsigned},
-	};
+	{'x', &print_x}, {'X', &print_xx}};
 
 	(*i)++;
 	while (input[*i] && input[*i] == ' ')
@@ -47,7 +27,7 @@ void	def_types(t_parseflags *tab, const char *input, int *i)
 	def_flags(tab, input, i);
 	c = input[*i];
 	k = -1;
-	while (++k < 5)
+	while (++k < 7)
 	{
 		if (c == printer_tab[k].c)
 		{

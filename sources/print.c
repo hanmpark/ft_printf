@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 23:40:18 by hanmpark          #+#    #+#             */
-/*   Updated: 2022/12/30 17:48:06 by hanmpark         ###   ########.fr       */
+/*   Updated: 2022/12/31 17:39:29 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	print_c(t_parseflags *tab)
 {
 	char	c;
 	char	str[2];
-	
+
 	c = va_arg(tab->args, int);
 	if (!c)
 		return ;
@@ -46,27 +46,33 @@ void	print_decimal(t_parseflags *tab)
 {
 	long	nbr;
 	int		sign;
+	char	*str;
 
 	nbr = va_arg(tab->args, int);
 	if (!nbr)
 		return ;
+	str = ft_itoa(nbr);
 	sign = FALSE;
 	if (nbr < 0)
 	{
 		sign = TRUE;
 		nbr *= -1;
 	}
-	nbr_wflags(tab, nbr, sign);
+	nbr_wflags(tab, str, sign);
+	free(str);
 }
 
 void	print_unsigned(t_parseflags *tab)
 {
-	unsigned	nbr;
-	int			sign;
+	unsigned int	nbr;
+	int				sign;
+	char			*str;
 
 	nbr = va_arg(tab->args, unsigned);
 	if (!nbr)
 		return ;
+	str = ft_itoa(nbr);
 	sign = FALSE;
-	nbr_wflags(tab, nbr, sign);
+	nbr_wflags(tab, str, sign);
+	free(str);
 }
