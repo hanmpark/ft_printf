@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 17:33:23 by hanmpark          #+#    #+#             */
-/*   Updated: 2023/01/02 15:53:47 by hanmpark         ###   ########.fr       */
+/*   Updated: 2023/01/03 14:34:50 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,29 +37,32 @@ typedef struct s_printer
 }	t_printer;
 
 int		ft_printf(const char *input, ...);
-// PRINT
+/* PRINT */
 void	print_str(t_parseflags *tab);
 void	print_c(t_parseflags *tab);
 void	print_decimal(t_parseflags *tab);
 void	print_unsigned(t_parseflags *tab);
 void	print_x(t_parseflags *tab);
 void	print_xx(t_parseflags *tab);
-// FLAGS
+void	print_p(t_parseflags *tab);
+/* FLAGS */
 void	def_flags(t_parseflags *tab, const char *input, int *i);
-// FILTER_FLAGS
+/* FILTER_FLAGS */
 void	c_wflags(t_parseflags *tab, int c);
 void	str_wflags(t_parseflags *tab, char *str, size_t len);
 void	nbr_wflags(t_parseflags *tab, char *str, int sign, int len);
-// TREAT_FLAGS
+/* TREAT_FLAGS */
 void	width(t_parseflags *tab, char *str, size_t len);
 void	widthc(t_parseflags *tab, char c);
 void	widthnbr(t_parseflags *tab, char *str, int sign, int len);
 void	precision_str(t_parseflags *tab, char *str, size_t len);
-void	precision_nbr(t_parseflags *tab, int sign, int precisionlen);
 void	left_justifyc(t_parseflags *tab, char c);
 void	left_justifystr(t_parseflags *tab, char *str, size_t len);
 void	left_justifynbr(t_parseflags *tab, char *str, int sign, int len);
 void	pad_zero(t_parseflags *tab, char *str, int sign, int len);
 void	treat_nbrflags(t_parseflags *tab, int sign);
+/* FORMAT HEXADECIMAL */
+char	*format_hexa(char *hexadecimal, unsigned nbr);
+char	*format_hexap(char *hexadecimal, unsigned long long nbr);
 
 #endif

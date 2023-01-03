@@ -6,71 +6,76 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 14:16:15 by hanmpark          #+#    #+#             */
-/*   Updated: 2023/01/02 17:36:39 by hanmpark         ###   ########.fr       */
+/*   Updated: 2023/01/03 14:17:46 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 #include <stdio.h>
 
-static int	count_hexadecimal(long long nbr)
-{
-	int	count;
-
-	count = 1;
-	while (nbr / 16)
-	{
-		nbr /= 16;
-		count++;
-	}
-	return (count);
-}
-
 void	print_x(t_parseflags *tab)
 {
-	long long	nbr;
-	char		*hexadecimal;
-	char		*str;
-	int			count;
-	int			len;
+	unsigned int	nbr;
+	char			*str;
+	int				len;
 
-	nbr = va_arg(tab->args, long long);
-	hexadecimal = "0123456789abcdef";
-	count = count_hexadecimal(nbr);
-	str = malloc((count + 1) * sizeof(char));
-	str[count] = 0;
-	while (count-- > 0)
-	{
-		str[count] = hexadecimal[nbr % 16];
-		nbr /= 16;
-	}
+	nbr = va_arg(tab->args, unsigned);
+	str = format_hexa("0123456789abcdef", nbr);
 	if (nbr == 0 && tab->check_precision == TRUE && tab->precision == 0)
 		len = 0;
 	else
 		len = (int)ft_strlen(str);
-	if (tab->check_nbrflags == '#')
+	if (tab->check_nbrflags == '#' && nbr != 0)
+	{
+		tab->check_nbrflags = '0';
 		len += 2;
+	}
+	else if (tab->check_nbrflags == '#' && nbr == 0)
+		tab->check_nbrflags = 0;
 	nbr_wflags(tab, str, FALSE, len);
 	free(str);
 }
 
 void	print_xx(t_parseflags *tab)
 {
-	long long	nbr;
-	char		*hexadecimal;
-	char		*str;
-	int			count;
+	unsigned int	nbr;
+	char			*str;
+	int				len;
 
-	nbr = va_arg(tab->args, long long);
-	hexadecimal = "0123456789ABCDEF";
-	count = count_hexadecimal(nbr);
-	str = malloc((count + 1) * sizeof(char));
-	str[count] = 0;
-	while (nbr && count-- > 0)
+	nbr = va_arg(tab->args, unsigned);
+	str = format_hexa("0123456789ABCDEF", nbr);
+	if (nbr == 0 && tab->check_precision == TRUE && tab->precision == 0)
+		len = 0;
+	else
+		len = (int)ft_strlen(str);
+	if (tab->check_nbrflags == '#' && nbr != 0)
 	{
-		str[count] = hexadecimal[nbr % 16];
-		nbr /= 16;
+		tab->check_nbrflags = '1';
+		len += 2;
 	}
-	nbr_wflags(tab, str, FALSE, (int)ft_strlen(str));
+	else if (tab->check_nbrflags == '#' && nbr == 0)
+		tab->check_nbrflags = 0;
+	nbr_wflags(tab, str, FALSE, len);
+	free(str);
+}
+
+void	print_p(t_parseflags *tab)
+{
+	unsigned long long	nbr;
+	char				*str;
+	int					len;
+
+	nbr = va_arg(tab->args, unsigned long long);
+	str = format_hexap("0123456789abcdef", nbr);
+	if (nbr == 0 && tab->check_precision == TRUE && tab->precision == 0)
+	{
+		tab->len += write(1, "0x", 2);
+		return ;
+	}
+	else
+		len = (int)ft_strlen(str);
+	tab->check_nbrflags = '0';
+	len += 2;
+	nbr_wflags(tab, str, FALSE, len);
 	free(str);
 }
