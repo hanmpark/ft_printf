@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 14:16:15 by hanmpark          #+#    #+#             */
-/*   Updated: 2023/01/03 18:12:47 by hanmpark         ###   ########.fr       */
+/*   Updated: 2023/01/03 23:48:28 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	print_xx(t_parseflags *tab)
 	int				len;
 
 	nbr = va_arg(tab->args, unsigned);
-	str = format_hexa_pointer("0123456789ABCDEF", nbr);
+	str = format_hexa("0123456789ABCDEF", nbr);
 	if (nbr == 0 && tab->check_precision == TRUE && tab->precision == 0)
 		len = 0;
 	else
@@ -65,7 +65,7 @@ void	print_p(t_parseflags *tab)
 	int					len;
 
 	nbr = va_arg(tab->args, unsigned long long);
-	str = format_hexa("0123456789abcdef", nbr);
+	str = format_pointer("0123456789abcdef", nbr);
 	if (nbr == 0 && tab->check_precision == TRUE && tab->precision == 0)
 	{
 		tab->len += write(1, "0x", 2);

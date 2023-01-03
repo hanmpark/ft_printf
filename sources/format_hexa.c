@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 11:36:47 by hanmpark          #+#    #+#             */
-/*   Updated: 2023/01/03 18:08:21 by hanmpark         ###   ########.fr       */
+/*   Updated: 2023/01/03 23:50:31 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	count_hexa(unsigned int nbr)
 	return (count);
 }
 
-static int	count_hexap(unsigned long long int nbr)
+static int	count_hexap(unsigned long long nbr)
 {
 	int	count;
 
@@ -54,7 +54,7 @@ char	*format_hexa(const char *hexadecimal, unsigned int nbr)
 	return (str);
 }
 
-char	*format_hexa_pointer(const char *hexadecimal, unsigned long long nbr)
+char	*format_pointer(const char *hexadecimal, unsigned long long nbr)
 {
 	int		count;
 	char	*str;
