@@ -6,14 +6,13 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 11:36:47 by hanmpark          #+#    #+#             */
-/*   Updated: 2023/01/03 14:17:09 by hanmpark         ###   ########.fr       */
+/*   Updated: 2023/01/03 16:40:58 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
-#include <stdio.h>
 
-static int	count_hexa(unsigned nbr)
+static int	count_hexa(unsigned int nbr)
 {
 	int	count;
 
@@ -26,7 +25,7 @@ static int	count_hexa(unsigned nbr)
 	return (count);
 }
 
-static int	count_hexap(unsigned long long nbr)
+static int	count_hexap(unsigned long long int nbr)
 {
 	int	count;
 
@@ -39,7 +38,7 @@ static int	count_hexap(unsigned long long nbr)
 	return (count);
 }
 
-char	*format_hexa(char *hexadecimal, unsigned nbr)
+char	*format_hexa(char *hexadecimal, unsigned int nbr)
 {
 	int		count;
 	char	*str;

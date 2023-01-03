@@ -6,16 +6,15 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:59:34 by hanmpark          #+#    #+#             */
-/*   Updated: 2023/01/03 13:18:14 by hanmpark         ###   ########.fr       */
+/*   Updated: 2023/01/03 16:40:06 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_printf.h"
-#include <stdio.h>
 
-void	def_types(t_parseflags *tab, const char *input, int *i)
+static void	def_specifier(t_parseflags *tab, const char *format, int *i)
 {
-	char			c;
+	char			format_specifier;
 	int				k;
 	const t_printer	printer_tab[] = {
 	{'s', &print_str}, {'c', &print_c}, {'d', &print_decimal},
@@ -24,44 +23,41 @@ void	def_types(t_parseflags *tab, const char *input, int *i)
 	};
 
 	(*i)++;
-	def_flags(tab, input, i);
-	c = input[*i];
+	def_flags(tab, format, i);
+	format_specifier = format[*i];
 	k = -1;
 	while (++k < 8)
 	{
-		if (c == printer_tab[k].c)
-		{
+		if (format_specifier == printer_tab[k].c)
 			printer_tab[k].ft(tab);
-			return ;
-		}
 	}
-	if (c == '%')
-		c_wflags(tab, c);
+	if (format_specifier == '%')
+		c_wflags(tab, format_specifier);
 }
 
-int	ft_printf(const char *input, ...)
+int	ft_printf(const char *format, ...)
 {
 	t_parseflags	*tab;
 	int				i;
-	int				cnbr;
+	int				len;
 
 	tab = malloc(sizeof(t_parseflags));
 	if (!tab)
 		return (-1);
 	tab->len = 0;
-	va_start(tab->args, input);
+	va_start(tab->args, format);
 	i = 0;
-	cnbr = 0;
-	while (input[i])
+	len = 0;
+	while (format[i])
 	{
-		if (input[i] == '%' && input[i + 1])
-			def_types(tab, input, &i);
-		else if (input[i] && input[i] != '%')
-			cnbr += write(1, &input[i], 1);
+		if (format[i] == '%' && format[i + 1])
+			def_specifier(tab, format, &i);
+		else if (format[i] && format[i] != '%')
+			len += write(1, &format[i], 1);
 		i++;
 	}
 	va_end(tab->args);
-	cnbr += tab->len;
+	len += tab->len;
 	free(tab);
-	return (cnbr);
+	return (len);
 }

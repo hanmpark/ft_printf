@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   filter_flags.c                                     :+:      :+:    :+:   */
+/*   specifier_filtering.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 12:03:05 by hanmpark          #+#    #+#             */
-/*   Updated: 2023/01/03 15:21:47 by hanmpark         ###   ########.fr       */
+/*   Updated: 2023/01/03 16:39:44 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
-#include <stdio.h>
 
-void	str_wflags(t_parseflags *tab, char *str, size_t len)
+void	str_wflags(t_parseflags *tab, char *str, int len)
 {
-	if (tab->check_precision == TRUE && (size_t)tab->precision < len)
-		len = (size_t)tab->precision;
+	if (tab->check_precision == TRUE && tab->precision < len)
+		len = tab->precision;
 	if (tab->check_zerojustify == '-')
 		left_justifystr(tab, str, len);
 	else

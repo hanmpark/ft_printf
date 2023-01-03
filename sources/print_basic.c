@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
+/*   print_basic.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 23:40:18 by hanmpark          #+#    #+#             */
-/*   Updated: 2023/01/03 15:21:34 by hanmpark         ###   ########.fr       */
+/*   Updated: 2023/01/03 16:39:34 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
-#include <stdio.h>
 
 void	print_str(t_parseflags *tab)
 {
 	char	*str;
-	size_t	len;
+	int		len;
 
 	str = va_arg(tab->args, char *);
 	if (!str)
@@ -24,7 +23,7 @@ void	print_str(t_parseflags *tab)
 		str_wflags(tab, "(null)", 6);
 		return ;
 	}
-	len = ft_strlen(str);
+	len = (int)ft_strlen(str);
 	str_wflags(tab, str, len);
 }
 

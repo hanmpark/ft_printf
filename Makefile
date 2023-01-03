@@ -6,7 +6,7 @@
 #    By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 07:13:22 by hanmpark          #+#    #+#              #
-#    Updated: 2023/01/03 11:39:40 by hanmpark         ###   ########.fr        #
+#    Updated: 2023/01/03 16:13:32 by hanmpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,8 @@ _IPURPLE	=	\x1b[45m
 
 
 #################### SOURCES / OBJECTS ####################
-SRCS_FILES	=	def_flags.c print.c str_flags.c nbr_flags.c \
-				print_hexadecimal.c filter_flags.c format_hexa.c
+SRCS_FILES	=	def_flags.c print_basic.c treat_charflags.c treat_intflags.c \
+				print_hexa.c specifier_filtering.c format_hexa.c
 SRCS		=	${addprefix ${SRCS_DIR}, ${SRCS_FILES}} ft_printf.c
 
 OBJS		=	${SRCS:.c=.o}

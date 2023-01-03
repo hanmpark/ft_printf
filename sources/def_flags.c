@@ -6,12 +6,11 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:04:43 by hanmpark          #+#    #+#             */
-/*   Updated: 2023/01/03 14:29:41 by hanmpark         ###   ########.fr       */
+/*   Updated: 2023/01/03 16:39:05 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
-#include <stdio.h>
 
 static void	init_flags(t_parseflags *tab)
 {
@@ -50,7 +49,7 @@ static void	parse_precision(t_parseflags *tab, const char *input, int *i)
 static void	parse_flags(t_parseflags *tab, const char *input, int *i)
 {
 	while (input[*i] && (input[*i] == '#' || input[*i] == ' '
-		|| input[*i] == '+'))
+			|| input[*i] == '+'))
 	{
 		tab->check_nbrflags = input[*i];
 		(*i)++;
@@ -62,7 +61,7 @@ static void	parse_flags(t_parseflags *tab, const char *input, int *i)
 		(*i)++;
 	}
 	while (input[*i] && (input[*i] == '#' || input[*i] == ' '
-		|| input[*i] == '+'))
+			|| input[*i] == '+'))
 	{
 		tab->check_nbrflags = input[*i];
 		(*i)++;
