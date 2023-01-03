@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 17:43:57 by hanmpark          #+#    #+#             */
-/*   Updated: 2023/01/03 16:41:07 by hanmpark         ###   ########.fr       */
+/*   Updated: 2023/01/03 17:42:44 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	precision_str(t_parseflags *tab, char *str, int len)
 		tab->len += write(1, &*str++, 1);
 }
 
-void	width(t_parseflags *tab, char *str, int len)
+void	widthstr(t_parseflags *tab, char *str, int len)
 {
 	int	toprint;
 

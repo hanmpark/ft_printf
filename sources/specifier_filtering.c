@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 12:03:05 by hanmpark          #+#    #+#             */
-/*   Updated: 2023/01/03 16:39:44 by hanmpark         ###   ########.fr       */
+/*   Updated: 2023/01/03 18:02:04 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,26 @@ void	str_wflags(t_parseflags *tab, char *str, int len)
 	if (tab->check_zerojustify == '-')
 		left_justifystr(tab, str, len);
 	else
-		width(tab, str, len);
+		widthstr(tab, str, len);
 }
 
 void	c_wflags(t_parseflags *tab, int c)
 {
 	if (tab->check_zerojustify == '-')
 		left_justifyc(tab, c);
+	else
+		widthc(tab, c);
+}
+
+void	prct_wflags(t_parseflags *tab)
+{
+	int	c;
+
+	c = '%';
+	if (tab->check_zerojustify == '-')
+		left_justifyc(tab, c);
+	else if (tab->check_zerojustify == '0')
+		pad_zero(tab, "%", 2, 1);
 	else
 		widthc(tab, c);
 }

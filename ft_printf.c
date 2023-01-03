@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:59:34 by hanmpark          #+#    #+#             */
-/*   Updated: 2023/01/03 16:40:06 by hanmpark         ###   ########.fr       */
+/*   Updated: 2023/01/03 17:44:53 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,18 @@ static void	def_specifier(t_parseflags *tab, const char *format, int *i)
 	const t_printer	printer_tab[] = {
 	{'s', &print_str}, {'c', &print_c}, {'d', &print_decimal},
 	{'i', &print_decimal}, {'u', &print_unsigned}, {'x', &print_x},
-	{'X', &print_xx}, {'p', &print_p}
+	{'X', &print_xx}, {'p', &print_p}, {'%', &prct_wflags}
 	};
 
 	(*i)++;
 	def_flags(tab, format, i);
 	format_specifier = format[*i];
 	k = -1;
-	while (++k < 8)
+	while (++k < 9)
 	{
 		if (format_specifier == printer_tab[k].c)
 			printer_tab[k].ft(tab);
 	}
-	if (format_specifier == '%')
-		c_wflags(tab, format_specifier);
 }
 
 int	ft_printf(const char *format, ...)

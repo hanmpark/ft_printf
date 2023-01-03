@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:04:43 by hanmpark          #+#    #+#             */
-/*   Updated: 2023/01/03 16:39:05 by hanmpark         ###   ########.fr       */
+/*   Updated: 2023/01/03 18:10:07 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,56 +22,56 @@ static void	init_flags(t_parseflags *tab)
 	tab->precision = 0;
 }
 
-static void	parse_width(t_parseflags *tab, const char *input, int *i)
+static void	parse_width(t_parseflags *tab, const char *format, int *i)
 {
-	if (input[*i] && ft_isdigit(input[*i]))
+	if (format[*i] && ft_isdigit(format[*i]))
 	{
 		tab->check_width = TRUE;
-		tab->width = ft_atoi(input + *i);
+		tab->width = ft_atoi(format + *i);
 	}
-	while (input[*i] && (ft_isdigit(input[*i])))
+	while (format[*i] && (ft_isdigit(format[*i])))
 		(*i)++;
 }
 
-static void	parse_precision(t_parseflags *tab, const char *input, int *i)
+static void	parse_precision(t_parseflags *tab, const char *format, int *i)
 {
-	if (input[*i] && input[*i] == '.')
+	if (format[*i] && format[*i] == '.')
 	{
 		tab->check_precision = TRUE;
 		(*i)++;
-		if (input[*i] && ft_isdigit(input[*i]))
-			tab->precision = ft_atoi(input + *i);
-		while (input[*i] && ft_isdigit(input[*i]))
+		if (format[*i] && ft_isdigit(format[*i]))
+			tab->precision = ft_atoi(format + *i);
+		while (format[*i] && ft_isdigit(format[*i]))
 			(*i)++;
 	}
 }
 
-static void	parse_flags(t_parseflags *tab, const char *input, int *i)
+static void	parse_flags(t_parseflags *tab, const char *format, int *i)
 {
-	while (input[*i] && (input[*i] == '#' || input[*i] == ' '
-			|| input[*i] == '+'))
+	while (format[*i] && (format[*i] == '#' || format[*i] == ' '
+			|| format[*i] == '+'))
 	{
-		tab->check_nbrflags = input[*i];
+		tab->check_nbrflags = format[*i];
 		(*i)++;
 	}
-	while (input[*i] && (input[*i] == '-' || input[*i] == '0'))
+	while (format[*i] && (format[*i] == '-' || format[*i] == '0'))
 	{
 		if (tab->check_zerojustify != '-')
-			tab->check_zerojustify = input[*i];
+			tab->check_zerojustify = format[*i];
 		(*i)++;
 	}
-	while (input[*i] && (input[*i] == '#' || input[*i] == ' '
-			|| input[*i] == '+'))
+	while (format[*i] && (format[*i] == '#' || format[*i] == ' '
+			|| format[*i] == '+'))
 	{
-		tab->check_nbrflags = input[*i];
+		tab->check_nbrflags = format[*i];
 		(*i)++;
 	}
 }
 
-void	def_flags(t_parseflags *tab, const char *input, int *i)
+void	def_flags(t_parseflags *tab, const char *format, int *i)
 {
 	init_flags(tab);
-	parse_flags(tab, input, i);
-	parse_width(tab, input, i);
-	parse_precision(tab, input, i);
+	parse_flags(tab, format, i);
+	parse_width(tab, format, i);
+	parse_precision(tab, format, i);
 }
