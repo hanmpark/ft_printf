@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 17:33:23 by hanmpark          #+#    #+#             */
-/*   Updated: 2023/01/03 23:53:09 by hanmpark         ###   ########.fr       */
+/*   Updated: 2023/01/04 13:37:33 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	prct_wflags(t_parseflags *tab);
 void	widthstr(t_parseflags *tab, char *str, int len);
 void	widthc(t_parseflags *tab, char c);
 void	widthnbr(t_parseflags *tab, char *str, int sign, int len);
-void	precision_str(t_parseflags *tab, char *str, int len);
 void	left_justifyc(t_parseflags *tab, char c);
 void	left_justifystr(t_parseflags *tab, char *str, int len);
 void	left_justifynbr(t_parseflags *tab, char *str, int sign, int len);

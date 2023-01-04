@@ -6,7 +6,7 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:59:34 by hanmpark          #+#    #+#             */
-/*   Updated: 2023/01/03 17:44:53 by hanmpark         ###   ########.fr       */
+/*   Updated: 2023/01/04 13:55:21 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void	def_specifier(t_parseflags *tab, const char *format, int *i)
 {
-	char			format_specifier;
-	int				k;
-	const t_printer	printer_tab[] = {
+	char				format_specifier;
+	int					k;
+	static t_printer	printer_tab[] = {
 	{'s', &print_str}, {'c', &print_c}, {'d', &print_decimal},
 	{'i', &print_decimal}, {'u', &print_unsigned}, {'x', &print_x},
 	{'X', &print_xx}, {'p', &print_p}, {'%', &prct_wflags}
