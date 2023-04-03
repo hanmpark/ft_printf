@@ -6,11 +6,11 @@
 /*   By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 17:54:49 by hanmpark          #+#    #+#             */
-/*   Updated: 2023/01/03 16:39:56 by hanmpark         ###   ########.fr       */
+/*   Updated: 2023/04/03 11:17:31 by hanmpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "ft_printf.h"
 
 static int	precision_count(t_parseflags *tab, int len)
 {

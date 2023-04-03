@@ -6,57 +6,102 @@
 #    By: hanmpark <hanmpark@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 16:40:47 by hanmpark          #+#    #+#              #
-#    Updated: 2022/11/29 17:54:06 by hanmpark         ###   ########.fr        #
+#    Updated: 2023/04/03 11:30:01 by hanmpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-H_FILE = libft.h
+# ---------------------------------- COLORS ---------------------------------- #
+DEF = \033[0m
+BOLD = \033[1m
+CUR = \033[3m
+UL = \033[4m
+UP = \033[A
 
-SOURCES 	=	ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
-				ft_isdigit.c ft_isprint.c ft_memcpy.c ft_memset.c \
-				ft_strlen.c ft_memmove.c ft_strlcpy.c ft_strlcat.c \
-				ft_toupper.c ft_tolower.c ft_strchr.c ft_strrchr.c \
-				ft_strncmp.c ft_memchr.c ft_memcmp.c ft_strnstr.c \
-				ft_atoi.c ft_calloc.c ft_strdup.c ft_substr.c ft_strjoin.c \
-				ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c \
-				ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
+ORANGE = \033[38;5;216m
+LBLUE = \033[38;5;153m
+LYELLOW = \033[38;5;222m
+BEIGE = \033[38;5;223m
+LGREEN = \033[38;5;155m
 
-OBJS		= ${SOURCES:.c=.o}
+# ------------------------------ LIBFT SOURCES ------------------------------- #
 
-BONUS 		=	ft_lstnew.c ft_lstadd_front.c ft_lstsize.c \
-				ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c \
-				ft_lstclear.c ft_lstiter.c ft_lstmap.c 
+SRCS_LIBFT = ft_bzero.c \
+				ft_isalnum.c \
+				ft_isalpha.c \
+				ft_isascii.c \
+				ft_isdigit.c \
+				ft_isprint.c \
+				ft_memcpy.c \
+				ft_memset.c \
+				ft_strlen.c \
+				ft_memmove.c \
+				ft_strlcpy.c \
+				ft_strlcat.c \
+				ft_toupper.c \
+				ft_tolower.c \
+				ft_strchr.c \
+				ft_strrchr.c \
+				ft_strncmp.c \
+				ft_memchr.c \
+				ft_memcmp.c \
+				ft_strnstr.c \
+				ft_atoi.c \
+				ft_calloc.c \
+				ft_strdup.c \
+				ft_substr.c \
+				ft_strjoin.c \
+				ft_strtrim.c \
+				ft_split.c \
+				ft_itoa.c \
+				ft_strmapi.c \
+				ft_striteri.c \
+				ft_putchar_fd.c \
+				ft_putstr_fd.c \
+				ft_putendl_fd.c \
+				ft_putnbr_fd.c \
+				ft_lstnew.c \
+				ft_lstadd_front.c \
+				ft_lstsize.c \
+				ft_lstlast.c \
+				ft_lstadd_back.c \
+				ft_lstdelone.c \
+				ft_lstclear.c \
+				ft_lstiter.c \
+				ft_lstmap.c
 
-BONUS_OBJS	= ${BONUS:.c=.o}
+OBJS = ${SRCS_LIBFT:.c=.o}
 
-CC 			= gcc
-CFLAGS		= -Wall -Wextra -Werror
+# --------------------------------- COMPILER --------------------------------- #
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
+HEADER_PATH = ./inc/
 
-ifdef BONUS_OK
-OBJ			= ${OBJS} ${BONUS_OBJS}
-else
-OBJ			= ${OBJS}
-endif
+SRCS_COUNT = 0
+SRCS_TOT = ${shell find . -type f -name '*.c' | wc -l}
+SRCS_PRCT = ${shell expr 100 \* ${SRCS_COUNT} / ${SRCS_TOT}}
+BAR = ${shell expr 23 \* ${SRCS_COUNT} / ${SRCS_TOT}}
 
-%.o:%.c		${H_FILE}
-				@${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+.c.o: ${HEADER_PATH}
+	@${eval SRCS_COUNT = ${shell expr ${SRCS_COUNT} + 1}}
+	@${CC} ${CFLAGS} -I ${HEADER_PATH} -c $< -o ${<:.c=.o}
+	@echo " ${BOLD}${CUR}${BEIGE}-> Compiling ${DEF}${BOLD}${LYELLOW}[LIBFT]${DEF}"
+	@printf " ${BEIGE}   [${LGREEN}%-23.${BAR}s${BEIGE}] [%d/%d (%d%%)]${DEF}" "***********************" ${SRCS_COUNT} ${SRCS_TOT} ${SRCS_PRCT}
+	@echo "${UP}${UP}"
 
-NAME		= libft.a
+# ---------------------------------- RULES ----------------------------------- #
+NAME = libft.a
 
-all:		${NAME}
+all: ${NAME}
 
-${NAME}:	${OBJ}
-				@ar rcs ${NAME} ${OBJ}
+${NAME}: ${OBJS}
+	@ar rcs ${NAME} ${OBJS}
 
-clean:	
-				@rm -f ${OBJS} ${BONUS_OBJS}
+clean:
+	@rm -f ${OBJS}
 
-fclean:		clean
-				@rm -f ${NAME}
+fclean: clean
+	@rm -f ${NAME}
 
-re:			fclean all
-
-bonus:
-				@${MAKE} BONUS_OK=1
+re: fclean all
 
 .PHONY: all clean fclean re bonus
